@@ -10,4 +10,9 @@ public class IndexController {
     public String index() {
         return "mainPage/index";
     }
+
+    @GetMapping("/test")
+    public String index2() {
+        return "mainPage/index";
+    }
 }
