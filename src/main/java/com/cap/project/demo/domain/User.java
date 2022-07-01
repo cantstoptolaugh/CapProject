@@ -4,6 +4,8 @@ import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -27,8 +29,12 @@ public class User {
     @Column(name = "user_nickname" , columnDefinition = " varchar(255) NOT NULL UNIQUE ")
     private String nickname;
 
-    @Column(name="age", nullable = false)
+    @Column(name="user_age", nullable = false)
     private int age;
+
+    // user can know list of boards
+    @OneToMany(mappedBy = "user")
+    private List<Board> boards = new ArrayList<>();
 
     public User() {
     }
