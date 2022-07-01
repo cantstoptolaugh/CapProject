@@ -15,4 +15,12 @@ public class IndexController {
     public String index2() {
         return "mainPage/index";
     }
+
+
+
+    @GetMapping("/test3")
+    public String index3() {
+        return "mainPage/index";
+    }
+
 }
