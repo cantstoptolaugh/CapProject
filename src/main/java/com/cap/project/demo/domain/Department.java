@@ -18,7 +18,7 @@ public class Department {
     private Long id;
 
     @Column(name = "department_type" , columnDefinition = "varchar(255) NOT NULL UNIQUE ")
-    private Long type;
+    private String type;
 
     // department know list of experts
     @OneToMany(mappedBy = "department")
@@ -28,7 +28,7 @@ public class Department {
     }
 
     @Builder
-    public Department(Long type) {
+    public Department(String type) {
         this.type = type;
     }
 }

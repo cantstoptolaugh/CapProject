@@ -44,4 +44,9 @@ public class Attachment {
         this.attachmentType = attachmentType;
 
     }
+
+    public void addExpert(Expert expert) {
+        this.expert = expert;
+        expert.getAttachedFiles().add(this);
+    }
 }

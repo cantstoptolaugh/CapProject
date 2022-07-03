@@ -1,9 +1,12 @@
 package com.cap.project.demo.domain;
 
+import com.cap.project.demo.domain.enums.Role;
 import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -46,11 +49,20 @@ public class Expert {
     @Column(name="expert_age", nullable = false)
     private int age;
 
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20 , nullable = false)
+    private Role roleType;
+
+    @OneToMany(mappedBy = "expert", cascade = CascadeType.ALL)
+    private List<Attachment> attachedFiles = new ArrayList<>();
+
+
     public Expert() {
     }
 
     @Builder
-    public Expert(String loginId, String password, String certificate_number, String hospital_name, String career, String name, int age) {
+    public Expert(String loginId, String password, String certificate_number, String hospital_name, String career,
+                  String name, int age ,Role role, Department department , List<Attachment> attachedFiles) {
         this.loginId = loginId;
         this.password = password;
         this.certificate_number = certificate_number;
@@ -58,5 +70,8 @@ public class Expert {
         this.career = career;
         this.name = name;
         this.age = age;
+        this.roleType = role;
+        this.department = department;
+        this.attachedFiles = attachedFiles;
     }
 }
