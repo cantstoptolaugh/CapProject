@@ -1,0 +1,139 @@
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- 구글폰트  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Song+Myung&display=swap" rel="stylesheet">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>회원가입 불가</title>
+
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+
+
+    <!-- JS 변수값 초기화 -->
+    <script>
+        var ManicDepression = "[[${ManicDepression}]]";
+        var Depression = "[[${Depression}]]";
+        var PanicDisorder = "[[${PanicDisorder}]]";
+        var Schizophrenia = "[[${Schizophrenia}]]";
+        var Delusion = "[[${Delusion}]]";
+        var Sum = "[[${Sum}]]";
+    </script>
+
+    <!-- 설문 조사 결과에 맞는 원형 그래프 -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+        google.charts.load('visualization', {'packages': ['corechart']});
+
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Sentiment');
+            data.addColumn('number', 'Rating');
+            data.addRows([
+                ["우울증", Number(Depression)],
+                ["조울증", Number(ManicDepression)],
+                ["공황장애", Number(PanicDisorder)],
+                ["조현증", Number(Schizophrenia)],
+                ["망상장애", Number(Delusion)],
+                ["정상 범주", Number(Sum)]
+            ]);
+
+            var options = {
+                'title': "설문 조사 결과를 바탕으로 분석한 원형 그래프입니다."
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('SentimentGraph'));
+                chart.draw(data, options);
+            }
+    </script>
+
+    <link rel="stylesheet" href="/css/mainPage/common.css">
+
+</head>
+
+<body>
+
+<div class="container py-3">
+    
+    <!-- 헤더 (네비게이션바) -->
+    <header>
+        <!-- nav bar -->
+        <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+            <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+                <a href=""><img src="/img/mainPage/MainIcon.png" height="50px" width="50px"></a>
+                <span class="fs-4">마음이</span>
+                <span class="fs-1">
+                            <h6>마음을 치유하고싶은 이들을 위해</h6>
+                        </span>
+            </a>
+
+            <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+                <a class="me-3 py-2 text-dark text-decoration-none" href="" >감정 분석</a>
+                <a class="me-3 py-2 text-dark text-decoration-none" href="#" >마음이들</a>
+                <a class="me-3 py-2 text-dark text-decoration-none" href="#" >상담</a>
+                <a class="me-3 py-2 text-dark text-decoration-none" href="#" >상담 목록</a>
+                <a th:href="@{/login}" sec:authorize="!isAuthenticated()" class="py-2 text-dark text-decoration-none">로그인</a>
+                <div th:object="${session.user}">
+                    <a th:href="@{/logout}" sec:authorize="isAuthenticated()" class="me-3 py-2 text-dark text-decoration-none">로그아웃</a>
+                    <a sec:authorize="isAuthenticated()" class="me-3 py-2 text-dark text-decoration-none">마이페이지</a>
+                </div>
+            </nav>
+        </div>
+        <!-- end nav bar -->
+
+        <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+            <h1 class="display-4 fw-normal">
+                회원가입
+                <h4 style="color:gray;">
+                    사용자 설문조사 결과
+                </h4>
+            </h1>
+        </div>
+    </header>
+    <!-- end 헤더 (네비게이션바) -->
+
+    <main style="display:flex; flex-direction:column; justify-content: center; align-items:center;">
+        <section>
+            <div id="SentimentGraph" style="width: 900px; height: 500px;"></div>
+        </section>
+        <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+
+            <p class="fs-5 ">
+                다른 정신 건강 질환이 의심되오나, 정상적인 범주가 훨씬 많으신 것 같아요.
+                <br>
+                <b>설문 조사를 다시 하고 싶으시면 "뒤로가기" 버튼을 눌러주세요.</b>
+            </p>
+        </div>
+        <section style="display:flex; justify-content: center;">
+            <a class="btn btn-dark" th:href="@{/survey}"> 뒤로가기 </a>
+        </section>
+    </main>    
+
+    <!-- 푸터 -->
+    <footer class="pt-4 my-md-5 pt-md-5 border-top">
+        <div class="row">
+            <div style="width: 100%; text-align: center;" class="col-6 col-md">
+                <h3 style="margin-bottom:20px;">융복합 캡스톤 디자인 - 마음이</h3>
+                <ul class="list-unstyled text-small">
+                    <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">조장 : 컴퓨터 소프트웨어 공학과 20193117 이주혁</a></li>
+                    <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">조원 : 컴퓨터 소프트웨어 공학과 20172178 이수찬</a></li>
+                    <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">조원 : 컴퓨터 소프트웨어 공학과 20172705 손진영</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>    
+
+</div>
+</body>
+</html>
