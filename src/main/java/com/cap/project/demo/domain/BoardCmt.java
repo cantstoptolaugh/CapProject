@@ -38,10 +38,11 @@ public class BoardCmt extends BaseTimeEntity {
     }
 
     @Builder
-    public BoardCmt(User user, Board board, String content) {
+    public BoardCmt(User user, Board board, Expert expert , String content) {
         this.user = user;
         this.board = board;
         this.content = content;
+        this.expert = expert;
     }
 
 }

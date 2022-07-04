@@ -1,6 +1,7 @@
 package com.cap.project.demo.domain;
 
 import jdk.jfr.Enabled;
+import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -41,6 +42,7 @@ public class Board extends BaseTimeEntity {
     public Board() {
     }
 
+    @Builder
     public Board(User user, String title, String content, String emotion) {
         this.user = user;
         this.title = title;
