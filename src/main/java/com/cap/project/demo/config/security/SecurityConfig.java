@@ -65,7 +65,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/")
                 .deleteCookies("JSESSIONID")
                 .and()
-                .exceptionHandling().accessDeniedHandler(webAccessDeniedHandler);
+                .exceptionHandling().accessDeniedHandler(webAccessDeniedHandler)
+                .and()
+                .sessionManagement()
+                .maximumSessions(1)
+                .expiredUrl("/login?alertmsg=" + URLEncoder.encode("로그인 시간이 만료되었습니다.","UTF-8"));
 
 
     }
