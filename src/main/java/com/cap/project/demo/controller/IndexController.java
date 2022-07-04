@@ -1,33 +1,43 @@
 package com.cap.project.demo.controller;
 
+import com.cap.project.demo.domain.Department;
+import com.cap.project.demo.domain.FileStore;
+import com.cap.project.demo.domain.enums.AttachmentType;
 import com.cap.project.demo.dto.request.ExpertJoinRequest;
 import com.cap.project.demo.dto.request.ExpertJoinRequestForm;
 import com.cap.project.demo.dto.request.UserJoinRequest;
 import com.cap.project.demo.dto.response.UserResponse;
+import com.cap.project.demo.repository.DepartmentRepository;
 import com.cap.project.demo.service.ExpertService;
 import com.cap.project.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.util.List;
 
 @Controller
 public class IndexController {
 
     @Autowired
-    public UserService userService;
+    private UserService userService;
 
     @Autowired
-    public ExpertService expertService;
+    private ExpertService expertService;
+
+    @Autowired
+    private FileStore fileStore;
+
+    @Autowired
+    private DepartmentRepository departmentRepository;
 
     @GetMapping("/")
     public String main(Model model) {
-        return "MainPage/index";
+        return "mainpage/index";
     }
 
     /**
@@ -41,7 +51,7 @@ public class IndexController {
 
         model.addAttribute("alertmsg", alertmsg);
 
-        return "MainPage/login";
+        return "mainpage/login";
     }
 
     /**
@@ -50,7 +60,7 @@ public class IndexController {
      */
     @GetMapping("/join/patient")
     public  String joinFormForPatient(){
-        return "MainPage/testUserForm";
+        return "mainpage/userSignUp";
     }
 
     /**
@@ -58,8 +68,12 @@ public class IndexController {
      * @return 회원가입 폼
      */
     @GetMapping("/join/expert")
-    public  String joinFormForExpert(){
-        return "MainPage/testExpertForm";
+    public  String joinFormForExpert(Model model){
+
+        List<Department> departments = departmentRepository.findAll();
+        model.addAttribute("departments", departments );
+
+        return "mainPage/expertSignUp";
     }
 
 
@@ -90,6 +104,14 @@ public class IndexController {
         expertService.joinForExpert(expertJoinRequest);
 
         return "redirect:/login";
+    }
+
+
+    @ResponseBody
+    @GetMapping("/images/{filename}")
+    public UrlResource processImg(@PathVariable String filename) throws MalformedURLException {
+
+        return new UrlResource("file:" + fileStore.createPath(filename, AttachmentType.IMAGE));
     }
 
 

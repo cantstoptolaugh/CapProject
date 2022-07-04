@@ -5,6 +5,7 @@ import com.cap.project.demo.service.SurveyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -18,6 +19,13 @@ public class SurveyController {
 
     @Autowired
     private IndexController indexController;
+
+    @GetMapping("/survey")
+    public String survey(Model model) {
+        model.addAttribute("survey", new SurveyRequest());
+        return "survey/surveyForm";
+    }
+
 
     @PostMapping("/survey")
     public String survey(@ModelAttribute SurveyRequest surveyRequest , Model model){
@@ -50,6 +58,6 @@ public class SurveyController {
 
         model.addAttribute("Sum", Sum);
 
-        return "Survey/surveyFailed"; // 정신 건강이 좋아서 회원가입 불가 페이지로 이동
+        return "survey/surveyFailed"; // 정신 건강이 좋아서 회원가입 불가 페이지로 이동
     }
 }
