@@ -1,5 +1,3 @@
-<!doctype html>
-
 <!-- thymeleaf 작성 위한 속성 -->
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 
@@ -30,23 +28,36 @@
 <div class="container py-3">
     <!-- 헤더 (네비게이션바) -->
     <header>
+        <!-- nav bar -->
         <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
-            <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
-                <a href="" th:href=""><img src="/img/mainPage/MainIcon.png" height="50px" width="50px"></a>
+            <a th:href="@{/}" class="d-flex align-items-center text-dark text-decoration-none">
+                <a th:href="@{/}"><img src="/img/mainPage/MainIcon.png" height="50px" width="50px"></a>
                 <span class="fs-4">마음이</span>
                 <span class="fs-1">
-                        <h6>마음을 치유하고싶은 이들을 위해</h6>
-                    </span>
+                            <h6>마음을 치유하고싶은 이들을 위해</h6>
+                        </span>
             </a>
 
+            <script th:inline="javascript">
+                let logout = !isAuthenticated();
+                if(logout) {
+                    alert("로그아웃 되셨습니다.");
+                }
+            </script>
+
             <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-                <a class="me-3 py-2 text-dark text-decoration-none" href="" th:href="">감정 분석</a>
-                <a class="me-3 py-2 text-dark text-decoration-none" href="#" th:href="">마음이들</a>
-                <a class="me-3 py-2 text-dark text-decoration-none" href="#" th:href="">상담</a>
-                <a class="me-3 py-2 text-dark text-decoration-none" href="#" th:href="">상담 목록</a>
-                <a class="py-2 text-dark text-decoration-none" href="#" th:href="">마이페이지</a>
+                <a class="me-3 py-2 text-dark text-decoration-none" href="">감정 분석</a>
+                <a class="me-3 py-2 text-dark text-decoration-none" href="#" >마음이들</a>
+                <a class="me-3 py-2 text-dark text-decoration-none" href="#" >상담</a>
+                <a class="me-3 py-2 text-dark text-decoration-none" href="#" >상담 목록</a>
+                <a th:href="@{/login}" sec:authorize="!isAuthenticated()" class="py-2 text-dark text-decoration-none">로그인</a>
+                <div th:object="${session.user}" style="display:flex; align-items: center;">
+                    <a sec:authorize="isAuthenticated()" class="me-3 py-2 text-dark text-decoration-none">마이페이지</a>
+                    <a th:href="@{/logout}" sec:authorize="isAuthenticated()" class="me-3 py-2 text-dark text-decoration-none">로그아웃</a>
+                </div>
             </nav>
         </div>
+        <!-- end nav bar -->
     </header>
     <!-- close 헤더 (네비게이션바) -->
 
@@ -58,7 +69,7 @@
             <p>알아보는 시간을 가지는 건 어떨까요?</p>
         </div>
         <div class="emotionButton">
-            <a class="btn btn-light" href="" th:href="">감정 분석하기</a>
+            <a class="btn btn-light" href="" >감정 분석하기</a>
         </div>
     </section>
     <!-- end section -->
@@ -67,7 +78,7 @@
     <header class="section2"><h2>오늘은 어떤 것을 하고 싶으신가요?</h2></header>
     <section class="s2CardSection row">
         <div class="s2Card col-sm-4">
-            <a style="text-decoration: none; color:black" href="" th:href="">
+            <a style="text-decoration: none; color:black" href="" >
                 <div style="border: 0px solid black; background-color:rgb(210, 251, 215)" class="card">
                     <div class="s2InCard card-body">
                         <h4 style="margin-bottom:30px;" class="s2CardTitle card-title">오늘의 기분 확인</h4>
@@ -77,7 +88,7 @@
             </a>
         </div>
         <div class="s2Card col-sm-4">
-            <a style="text-decoration: none; color:black" href="" th:href="">
+            <a style="text-decoration: none; color:black" href="" >
                 <div style="border: 0px solid black; background-color:rgb(251, 255, 206)" class="card">
                     <div class="s2InCard card-body">
                         <h4 style="margin-bottom:30px;" class="s2CardTitle card-title">오늘의 감정 글로 작성</h4>
@@ -87,7 +98,7 @@
             </a>
         </div>
         <div class="s2Card col-sm-4">
-            <a style="text-decoration: none; color:black" href="" th:href="">
+            <a style="text-decoration: none; color:black" href="" >
                 <div style="border: 0px solid black; background-color:rgb(224, 203, 249)" class="card">
                     <div class="s2InCard card-body">
                         <h4 style="margin-bottom:30px;" class="s2CardTitle card-title">상담 요청</h4>
@@ -108,7 +119,7 @@
             <p>현재 자신이 겪고 있는 상황에 대해 맞는 전문가를 찾아보세요!</p>
         </div>
         <div style="margin-top: 10px;">
-            <p><a style="text-decoration: none; color: black" href="" th:href="">전문가 찾기</a></p>
+            <p><a style="text-decoration: none; color: black" href="" >전문가 찾기</a></p>
         </div>
         <div class="section3Img">
             <img style="width: 400px; height: 400px;" src="/img/mainPage/section3Img.png">
