@@ -23,19 +23,22 @@ public class ExpertJoinRequestForm {
     private String name;
     private String certificate_number;
     private String hospital_name;
+
+    private Long department_id;
     private String career;
     private int age;
 
     private List<MultipartFile> imageFiles;
 
     @Builder
-    public ExpertJoinRequestForm(String username, String password, String name, String certificate_number, String hospital_name,
-                             String career, int age , List<MultipartFile> imageFiles) {
+    public ExpertJoinRequestForm(String username, String password, String name, String certificate_number, String hospital_name
+                             , Long department_id , String career, int age , List<MultipartFile> imageFiles) {
         this.username = username;
         this.password = password;
         this.name = name;
         this.certificate_number = certificate_number;
         this.hospital_name = hospital_name;
+        this.department_id = department_id;
         this.career = career;
         this.age = age;
         this.imageFiles = (imageFiles != null) ? imageFiles : new ArrayList<>();
@@ -52,6 +55,7 @@ public class ExpertJoinRequestForm {
                 .name(name)
                 .certificate_number(certificate_number)
                 .hospital_name(hospital_name)
+                .department_id(department_id)
                 .career(career)
                 .age(age)
                 .attachmentFiles(attachments)

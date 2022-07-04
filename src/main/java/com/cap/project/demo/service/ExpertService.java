@@ -42,7 +42,7 @@ public class ExpertService {
         String encodedPassword = bCryptPasswordEncoder.encode(password);
 
         // 임의로 department repository를 통해서 데이터를 가져온다.
-        Department department = departmentRepository.findById(1L).get();
+        Department department = departmentRepository.findById(expertJoinRequest.getDepartment_id()).get();
         Expert expertEntity = expertJoinRequest.createExpertEntity(encodedPassword , department);
 
         attachments.stream().forEach(e->e.addExpert(expertEntity));
