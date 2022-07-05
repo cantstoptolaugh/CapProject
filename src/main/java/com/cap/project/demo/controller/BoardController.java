@@ -58,7 +58,7 @@ public class BoardController {
      * 게시글을 작성할 수 있는 폼을 반환
      * @return 게시글 작성 폼
      */
-    @GetMapping
+    @GetMapping("/board/form")
     public String boardWriteForm(){
         return "board/boardWriteForm";
     }
