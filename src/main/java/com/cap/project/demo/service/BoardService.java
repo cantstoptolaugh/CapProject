@@ -16,11 +16,13 @@ import com.cap.project.demo.repository.ExpertRepository;
 import com.cap.project.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional(readOnly = true)
 public class BoardService {
 
     @Autowired
@@ -86,6 +88,7 @@ public class BoardService {
         return boardResponse;
     }
 
+    @Transactional
     public void post(BoardRequest boardRequest , Long db_id) {
 
         User user = userRepository.findById(db_id).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 유저입니다."));
@@ -97,7 +100,7 @@ public class BoardService {
                 .content(boardRequest.getContent()).build());
     }
 
-
+    @Transactional
     public void postCommentForUser(Long id, BoardCmtRequest boardCmtRequest, UserResponse userResponse) {
         Board board = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글입니다."));
         User user = userRepository.findById(userResponse.getDb_id()).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 유저입니다."));
@@ -111,6 +114,7 @@ public class BoardService {
     }
 
 
+    @Transactional
     public void postCommentForExpert(Long id, BoardCmtRequest boardCmtRequest, ExpertResponse expertResponse) {
         Board board = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글입니다."));
         Expert expert = expertRepository.findById(expertResponse.getDb_id()).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 유저입니다."));

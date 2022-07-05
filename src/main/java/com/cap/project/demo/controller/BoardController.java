@@ -10,6 +10,7 @@ import com.cap.project.demo.dto.response.ExpertResponse;
 import com.cap.project.demo.dto.response.UserResponse;
 import com.cap.project.demo.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -58,6 +59,7 @@ public class BoardController {
      * 게시글을 작성할 수 있는 폼을 반환
      * @return 게시글 작성 폼
      */
+    @Secured({"ROLE_USER" , "ROLE_EXPERT"})
     @GetMapping("/board/form")
     public String boardWriteForm(){
         return "board/boardWriteForm";
@@ -70,6 +72,7 @@ public class BoardController {
      * @param authentication
      * @return 게시글 목록 페이지
      */
+    @Secured({"ROLE_USER" , "ROLE_EXPERT"})
     @PostMapping("/boards")
     public String boardCreate(BoardRequest board , Authentication authentication) {
 
@@ -88,6 +91,7 @@ public class BoardController {
      * @param authentication
      * @return 상세 게시글 페이지
      */
+    @Secured({"ROLE_USER" , "ROLE_EXPERT"})
     @PostMapping("/board/{id}/comment")
     public String boardComment(@PathVariable Long id, BoardCmtRequest boardCmt , Authentication authentication) {
 

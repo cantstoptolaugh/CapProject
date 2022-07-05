@@ -9,13 +9,14 @@ import com.cap.project.demo.repository.ExpertRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.beans.Transient;
 import java.io.IOException;
 import java.util.List;
 
 @Service
+@Transactional(readOnly = true)
 public class ExpertService {
 
     @Autowired

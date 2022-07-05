@@ -32,7 +32,7 @@ public class Board extends BaseTimeEntity {
     private String content;
 
     // board_emotion
-    @Column(name = "board_emotion" , nullable = false)
+    @Column(name = "board_emotion")
     private String emotion;
 
     // board know onw boardcmt
