@@ -54,6 +54,15 @@ public class BoardController {
         return "board/boardDetail";
     }
 
+    /**
+     * 게시글을 작성할 수 있는 폼을 반환
+     * @return 게시글 작성 폼
+     */
+    @GetMapping
+    public String boardWriteForm(){
+        return "board/boardWriteForm";
+    }
+
 
     /**
      * 게시글을 작성하는 컨트롤러
