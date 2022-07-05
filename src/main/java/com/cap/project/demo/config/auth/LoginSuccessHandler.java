@@ -24,7 +24,7 @@ public class LoginSuccessHandler  implements AuthenticationSuccessHandler {
     private RequestCache requestCache = new HttpSessionRequestCache();
     private RedirectStrategy redirectStratgy = new DefaultRedirectStrategy();
     private String defaultUrl = "/";
-
+    
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,

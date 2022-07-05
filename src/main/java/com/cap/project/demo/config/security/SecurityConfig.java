@@ -1,5 +1,6 @@
 package com.cap.project.demo.config.security;
 
+import com.cap.project.demo.config.Oauth2.PrincipalOauth2UserService;
 import com.cap.project.demo.config.auth.LoginFailureHandler;
 import com.cap.project.demo.config.auth.LoginSuccessHandler;
 import com.cap.project.demo.config.auth.WebAccessDeniedHandler;
@@ -15,31 +16,34 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private LoginFailureHandler loginFailureHandler; // 로그인 실패시 처리하는 클래스
+    private final LoginFailureHandler loginFailureHandler; // 로그인 실패시 처리하는 클래스
 
-    private LoginSuccessHandler loginSuccessHandler; // 로그인 성공시 처리하는 클래스
+    private final LoginSuccessHandler loginSuccessHandler; // 로그인 성공시 처리하는 클래스
 
-    private WebAccessDeniedHandler webAccessDeniedHandler; // 권한 없을때 처리하는 클래스
+    private final WebAccessDeniedHandler webAccessDeniedHandler; // 권한 없을때 처리하는 클래스
+
+    private final PrincipalOauth2UserService principalOauth2UserService;
+
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    public SecurityConfig(LoginFailureHandler loginFailureHandler, LoginSuccessHandler loginSuccessHandler, WebAccessDeniedHandler webAccessDeniedHandler) {
+    public SecurityConfig(LoginFailureHandler loginFailureHandler, LoginSuccessHandler loginSuccessHandler,
+                          WebAccessDeniedHandler webAccessDeniedHandler , PrincipalOauth2UserService principalOauth2UserService
+                          , BCryptPasswordEncoder passwordEncoder) {
         this.loginFailureHandler = loginFailureHandler;
         this.loginSuccessHandler = loginSuccessHandler;
         this.webAccessDeniedHandler = webAccessDeniedHandler;
+        this.principalOauth2UserService = principalOauth2UserService;
+        this.passwordEncoder = passwordEncoder;
     }
 
-
-
-    @Bean
-    public BCryptPasswordEncoder encodePwd() {
-        return new BCryptPasswordEncoder();
-    }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -56,7 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
-                .loginPage("/login?alertmsg=" + URLEncoder.encode("로그인 필요합니다.","UTF-8"))
+                .loginPage("/login?alertmsg=" + URLEncoder.encode("로그인 필요합니다.", StandardCharsets.UTF_8))
                 .loginProcessingUrl("/loginProcess")
                 .failureHandler(loginFailureHandler)
                 .successHandler(loginSuccessHandler)
@@ -67,9 +71,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .exceptionHandling().accessDeniedHandler(webAccessDeniedHandler)
                 .and()
-                .sessionManagement()
-                .maximumSessions(1)
-                .expiredUrl("/login?alertmsg=" + URLEncoder.encode("로그인 시간이 만료되었습니다.","UTF-8"));
+                .oauth2Login()
+                .loginPage("/login?alertmsg=" + URLEncoder.encode("로그인 필요합니다.", StandardCharsets.UTF_8))
+                .userInfoEndpoint()
+                .userService(principalOauth2UserService);
+
+
 
 
     }

@@ -4,19 +4,28 @@ package com.cap.project.demo.config.auth;
 import com.cap.project.demo.dto.response.UserResponse;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
 
-public class PrincipalDetails implements UserDetails {
+public class PrincipalDetails implements UserDetails , OAuth2User {
 
 
-    private UserResponse user; //콤포지션
+    private final UserResponse user; //콤포지션
+
+    private Map<String, Object> attributes;
 
 
     public PrincipalDetails(UserResponse user) {
         this.user = user;
+    }
+
+    public PrincipalDetails(UserResponse user , Map<String, Object> attributes) {
+        this.user = user;
+        this.attributes = attributes;
     }
 
     public UserResponse getUser() {
@@ -82,5 +91,15 @@ public class PrincipalDetails implements UserDetails {
     public boolean isEnabled() {
 
         return true;
+    }
+
+    @Override
+    public Map<String, Object> getAttributes() {
+        return attributes;
+    }
+
+    @Override
+    public String getName() {
+        return user.getName() + "님 환영합니다!!";
     }
 }
