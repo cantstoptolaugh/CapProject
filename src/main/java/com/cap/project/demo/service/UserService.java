@@ -46,6 +46,7 @@ public class UserService {
                     .loginId(user.getUsername())
                     .password(encodePw)
                     .name(user.getName())
+                    .email(user.getEmail())
                     .nickname(user.getNickname())
                     .age(user.getAge())
                     .role(Role.valueOf("ROLE_USER")).build();
@@ -56,6 +57,7 @@ public class UserService {
         UserResponse userLoginResponse = UserResponse.builder()
                 .db_id(entity.getId())
                 .name(entity.getName())
+                .email(entity.getEmail())
                 .nickname(entity.getNickname())
                 .age(entity.getAge())
                 .role(entity.getRoleType()).build();
