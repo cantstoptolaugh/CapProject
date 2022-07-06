@@ -47,7 +47,7 @@
 
             <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
                 <a class="me-3 py-2 text-dark text-decoration-none" href="">감정 분석</a>
-                <a class="me-3 py-2 text-dark text-decoration-none" href="#" >마음이들</a>
+                <a class="me-3 py-2 text-dark text-decoration-none" th:href="@{/boards}">마음이들</a>
                 <a class="me-3 py-2 text-dark text-decoration-none" href="#" >상담</a>
                 <a class="me-3 py-2 text-dark text-decoration-none" href="#" >상담 목록</a>
                 <a th:href="@{/login}" sec:authorize="!isAuthenticated()" class="py-2 text-dark text-decoration-none">로그인</a>
