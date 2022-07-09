@@ -4,6 +4,7 @@ import com.cap.project.demo.domain.Attachment;
 import com.cap.project.demo.domain.Department;
 import com.cap.project.demo.domain.Expert;
 import com.cap.project.demo.dto.request.ExpertJoinRequest;
+import com.cap.project.demo.dto.response.ExpertResponse;
 import com.cap.project.demo.repository.DepartmentRepository;
 import com.cap.project.demo.repository.ExpertRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class ExpertService {
         String encodedPassword = bCryptPasswordEncoder.encode(password);
 
         // 임의로 department repository를 통해서 데이터를 가져온다.
-        Department department = departmentRepository.findById(expertJoinRequest.getDepartment_id()).get();
+        Department department = getDepartment(expertJoinRequest.getDepartment_id());
         Expert expertEntity = expertJoinRequest.createExpertEntity(encodedPassword , department);
 
         attachments.stream().forEach(e->e.addExpert(expertEntity));
@@ -53,4 +54,33 @@ public class ExpertService {
 
     }
 
+    private Department getDepartment(Long department_id) {
+
+        if(departmentRepository.findById(department_id).isPresent()){
+           return departmentRepository.findById(department_id).get();
+        }
+        return null;
+    }
+
+    public List<ExpertResponse> searchAllExperts() {
+
+        List<Expert> experts = expertRepository.findAll();
+
+        // each experts to ExpertResponse
+        List<ExpertResponse> expertResponses = experts.stream()
+                .map(e->ExpertResponse.builder()
+                        .db_id(e.getId())
+                        .name(e.getName())
+                        .age(e.getAge())
+                        .career(e.getCareer())
+                        .hospital_name(e.getHospital_name())
+                        .certificate_number(e.getCertificate_number())
+                        .role(e.getRoleType())
+                        .department(getDepartment(e.getDepartment().getId()))
+                        .attachedFiles(e.getAttachedFiles())
+                        .build())
+                .collect(java.util.stream.Collectors.toList());
+
+        return expertResponses;
+    }
 }
