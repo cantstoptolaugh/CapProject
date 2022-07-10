@@ -2,7 +2,9 @@ package com.cap.project.demo.controller;
 
 import com.cap.project.demo.config.auth.PrincipalDetails;
 import com.cap.project.demo.config.auth.PrincipalDetailsForExpert;
+import com.cap.project.demo.dto.request.ExpertUpdateDto;
 import com.cap.project.demo.dto.request.PasswordCheckDto;
+import com.cap.project.demo.dto.request.UserUpdateDto;
 import com.cap.project.demo.dto.response.ExpertResponse;
 import com.cap.project.demo.dto.response.UserResponse;
 import com.cap.project.demo.service.ExpertService;
@@ -13,23 +15,20 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class MyPageController {
 
     /**
-     * 1. 자신의 정보 나오기
+     * 1. 자신의 정보 나오기 O
      *
      * 2. 회원 정보 수정
      *      2.1 아이디 변경, 비밀변경 , 기본적인 자신의 프로필 정보 변경하기
      *
      * 3. 아이디 찾기, 비밀번호 찾기
      *
-     * 4. 회원 탈퇴
+     * 4. 회원 탈퇴 O
      */
 
     @Autowired
@@ -90,7 +89,7 @@ public class MyPageController {
                 return "redirect:/logout";
             } else {
                 model.addAttribute("message", "비밀번호가 일치하지 않습니다.");
-                return "redirect: /mypage/withdrawal";
+                return "redirect:/mypage/withdrawal";
             }
 
         }else{
@@ -101,10 +100,80 @@ public class MyPageController {
                 return "redirect:/logout";
             } else {
                 model.addAttribute("message", "비밀번호가 일치하지 않습니다.");
-                return "redirect: /mypage/withdrawal";
+                return "redirect:/mypage/withdrawal";
             }
         }
 
+    }
+
+
+    /**
+     * 프로필의 정보를 변경하기 위한 폼을 반환한다.
+     * 해당 폼에는 로그인한 사람의 기본적인 정보가 담겨있다.
+     * @Return String : 폼의 주소
+     */
+    @GetMapping("/mypage/profile")
+    public String getProfileForm(Authentication authentication, Model model) {
+
+        //  일반 환자의 경우 , 아이디 비밀번호 변경은 따로 진행 예정
+        if(authentication.getPrincipal() instanceof PrincipalDetails){
+
+            PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
+
+            UserResponse userResponse = userService.getUserInfo(principal.getUser().getDb_id());
+
+            model.addAttribute("user", userResponse);
+
+            return "환자 기본 정보 변경하는 폼으로 이동 (아이디 , 비밀번호는 변경 X)";
+
+        }else{
+
+            PrincipalDetailsForExpert principal = (PrincipalDetailsForExpert) authentication.getPrincipal();
+
+            ExpertResponse expertResponse = expertService.getExpertInfo(principal.getExpert().getDb_id());
+
+            model.addAttribute("expert", expertResponse);
+
+            return "심리 상담가 정보 변경하는 폼으로 이동 (아이디 , 비밀번호 , 사진 변경 X)";
+
+        }
+    }
+
+    /**
+     * 프론트에서 전달받은 정보를 통해서 회원 정보를 변경한다.
+     *
+     */
+    @PutMapping("/mypage/patient/profile")
+    public String updatePatientProfile(UserUpdateDto userUpdateDto, @AuthenticationPrincipal PrincipalDetails principalDetails
+                                ,Model model) {
+
+        String status = userService.updateUserInfo(userUpdateDto, principalDetails.getUser().getDb_id());
+
+        if(status.equals("success")) {
+            model.addAttribute("message", "회원정보가 수정되었습니다.");
+            return "redirect:/mypage/patient";
+        } else {
+            model.addAttribute("message", "회원정보 수정에 실패하였습니다.");
+            return "redirect:/mypage/patient";
+        }
+    }
+
+    /**
+     * 프론트에서 전달받은 정보를 통해서 심라 상담가 정보를 변경한다.
+     */
+    @PutMapping("/mypage/expert/profile")
+    public String updateExpertProfile(ExpertUpdateDto expertUpdateDto, @AuthenticationPrincipal PrincipalDetailsForExpert principalDetailsForExpert
+                                , Model model) {
+
+        String status = expertService.updateExpertInfo(expertUpdateDto, principalDetailsForExpert.getExpert().getDb_id());
+
+        if(status.equals("success")) {
+            model.addAttribute("message", "회원정보가 수정되었습니다.");
+            return "redirect:/mypage/expert";
+        } else {
+            model.addAttribute("message", "회원정보 수정에 실패하였습니다.");
+            return "redirect:/mypage/expert";
+        }
     }
 
 

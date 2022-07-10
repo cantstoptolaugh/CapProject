@@ -1,6 +1,7 @@
 package com.cap.project.demo.domain;
 
 import com.cap.project.demo.domain.enums.Role;
+import com.cap.project.demo.dto.request.UserUpdateDto;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -71,5 +72,12 @@ public class User {
         this.provider = provider;
         this.providerId = providerId;
         this.email = email;
+    }
+
+    public void updateUser(UserUpdateDto userUpdateDto) {
+        this.name = userUpdateDto.getName();
+        this.nickname = userUpdateDto.getNickname();
+        this.age = userUpdateDto.getAge();
+        this.email = userUpdateDto.getEmail();
     }
 }

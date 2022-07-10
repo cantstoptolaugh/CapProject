@@ -1,6 +1,7 @@
 package com.cap.project.demo.domain;
 
 import com.cap.project.demo.domain.enums.Role;
+import com.cap.project.demo.dto.request.ExpertUpdateDto;
 import lombok.Builder;
 import lombok.Getter;
 import org.hibernate.annotations.OnDelete;
@@ -76,5 +77,16 @@ public class Expert {
         this.roleType = role;
         this.department = department;
         this.attachedFiles = attachedFiles;
+    }
+
+    public void updateExpertInfo(ExpertUpdateDto expertUpdateDto , Department department) {
+
+        this.certificate_number = expertUpdateDto.getCertificate_number();
+        this.hospital_name = expertUpdateDto.getHospital_name();
+        this.career = expertUpdateDto.getCareer();
+        this.department = department;
+        this.name = expertUpdateDto.getName();
+        this.age = expertUpdateDto.getAge();
+
     }
 }

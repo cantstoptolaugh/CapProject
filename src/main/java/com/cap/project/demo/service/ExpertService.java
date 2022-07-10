@@ -5,6 +5,7 @@ import com.cap.project.demo.domain.Attachment;
 import com.cap.project.demo.domain.Department;
 import com.cap.project.demo.domain.Expert;
 import com.cap.project.demo.dto.request.ExpertJoinRequest;
+import com.cap.project.demo.dto.request.ExpertUpdateDto;
 import com.cap.project.demo.dto.request.PasswordCheckDto;
 import com.cap.project.demo.dto.response.ExpertResponse;
 import com.cap.project.demo.repository.DepartmentRepository;
@@ -124,5 +125,20 @@ public class ExpertService {
         }
         return "fail";
 
+    }
+
+    public String updateExpertInfo(ExpertUpdateDto expertUpdateDto, Long db_id) {
+
+            Expert expert = expertRepository.findById(db_id).orElse(null);
+
+        Department department = departmentRepository.findById(expertUpdateDto.getDepartment_id()).orElse(null);
+
+        if(expert != null){
+                expert.updateExpertInfo(expertUpdateDto , department);
+                expertRepository.save(expert);
+                return "success";
+            }else{
+                return "fail";
+            }
     }
 }

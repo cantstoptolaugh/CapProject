@@ -5,6 +5,7 @@ import com.cap.project.demo.domain.User;
 import com.cap.project.demo.domain.enums.Role;
 import com.cap.project.demo.dto.request.PasswordCheckDto;
 import com.cap.project.demo.dto.request.UserJoinRequest;
+import com.cap.project.demo.dto.request.UserUpdateDto;
 import com.cap.project.demo.dto.response.UserResponse;
 import com.cap.project.demo.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -107,5 +108,21 @@ public class UserService {
             return "fail";
         }
 
+    }
+
+    public String updateUserInfo(UserUpdateDto userUpdateDto , Long db_id) {
+
+            User user = userRepository.findById(db_id).orElse(null);
+
+            //UserUpdateDto에는 이미 데이터가 담겨있다.
+            if(user != null){
+                user.updateUser(userUpdateDto);
+            }else{
+                return "false";
+            }
+
+            userRepository.save(user);
+
+        return "success";
     }
 }
