@@ -33,23 +33,31 @@
     <header>
         <!-- nav bar -->
         <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
-            <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
-                <a href=""><img src="/img/mainPage/MainIcon.png" height="50px" width="50px"></a>
+            <a th:href="@{/}" class="d-flex align-items-center text-dark text-decoration-none">
+                <a th:href="@{/}"><img src="/img/mainPage/MainIcon.png" height="50px" width="50px"></a>
                 <span class="fs-4">마음이</span>
                 <span class="fs-1">
                             <h6>마음을 치유하고싶은 이들을 위해</h6>
                         </span>
             </a>
 
+            <script th:inline="javascript">
+                let logout = !isAuthenticated();
+                if(logout) {
+                    alert("로그아웃 되셨습니다.");
+                }
+            </script>
+
             <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-                <a class="me-3 py-2 text-dark text-decoration-none" href="" >감정 분석</a>
-                <a class="me-3 py-2 text-dark text-decoration-none" href="#" >마음이들</a>
-                <a class="me-3 py-2 text-dark text-decoration-none" href="#" >상담</a>
-                <a class="me-3 py-2 text-dark text-decoration-none" href="#" >상담 목록</a>
+                <a class="me-3 py-2 text-dark text-decoration-none" th:href="@{/face/emotion}">감정 분석</a>
+                <a class="me-3 py-2 text-dark text-decoration-none" th:href="@{/boards}">마음이들</a>
+                <a class="me-3 py-2 text-dark text-decoration-none" th:href="@{/consulting}" >상담</a>
+                <a class="me-3 py-2 text-dark text-decoration-none" th:href="@{/chat/list}" >상담 목록</a>
                 <a th:href="@{/login}" sec:authorize="!isAuthenticated()" class="py-2 text-dark text-decoration-none">로그인</a>
-                <div th:object="${session.user}">
+                <div th:object="${session.user}" style="display:flex; align-items: center;">
+                    <a th:href="@{/mypage/patient}" sec:authorize="hasRole('ROLE_USER')" class="me-3 py-2 text-dark text-decoration-none">마이페이지</a>
+                    <a th:href="@{/mypage/expert}" sec:authorize="hasRole('ROLE_EXPERT')" class="me-3 py-2 text-dark text-decoration-none">마이페이지</a>
                     <a th:href="@{/logout}" sec:authorize="isAuthenticated()" class="me-3 py-2 text-dark text-decoration-none">로그아웃</a>
-                    <a sec:authorize="isAuthenticated()" class="me-3 py-2 text-dark text-decoration-none">마이페이지</a>
                 </div>
             </nav>
         </div>
@@ -180,9 +188,9 @@
             <div style="width: 100%; text-align: center;" class="col-6 col-md">
                 <h3 style="margin-bottom:20px;">융복합 캡스톤 디자인 - 마음이</h3>
                 <ul class="list-unstyled text-small">
-                    <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">조장 : 컴퓨터 소프트웨어 공학과 20193117 이주혁</a></li>
-                    <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">조원 : 컴퓨터 소프트웨어 공학과 20172178 이수찬</a></li>
-                    <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">조원 : 컴퓨터 소프트웨어 공학과 20172705 손진영</a></li>
+                    <li class="mb-1"><a class="link-secondary text-decoration-none">팀장 : 컴퓨터 소프트웨어 공학과 20193117 이주혁</a></li>
+                    <li class="mb-1"><a class="link-secondary text-decoration-none">팀원 : 컴퓨터 소프트웨어 공학과 20172178 이수찬</a></li>
+                    <li class="mb-1"><a class="link-secondary text-decoration-none">팀원 : 컴퓨터 소프트웨어 공학과 20172705 손진영</a></li>
                 </ul>
             </div>
         </div>
