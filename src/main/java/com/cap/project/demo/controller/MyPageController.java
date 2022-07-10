@@ -2,11 +2,13 @@ package com.cap.project.demo.controller;
 
 import com.cap.project.demo.config.auth.PrincipalDetails;
 import com.cap.project.demo.config.auth.PrincipalDetailsForExpert;
+import com.cap.project.demo.domain.Department;
 import com.cap.project.demo.dto.request.ExpertUpdateDto;
 import com.cap.project.demo.dto.request.PasswordCheckDto;
 import com.cap.project.demo.dto.request.UserUpdateDto;
 import com.cap.project.demo.dto.response.ExpertResponse;
 import com.cap.project.demo.dto.response.UserResponse;
+import com.cap.project.demo.repository.DepartmentRepository;
 import com.cap.project.demo.service.ExpertService;
 import com.cap.project.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 public class MyPageController {
 
@@ -24,9 +28,9 @@ public class MyPageController {
      * 1. 자신의 정보 나오기 O
      *
      * 2. 회원 정보 수정
-     *      2.1 아이디 변경, 비밀변경 , 기본적인 자신의 프로필 정보 변경하기
+     *      2.1 아이디 변경 X , 비밀변경  X , 기본적인 자신의 프로필 정보 변경하기 O
      *
-     * 3. 아이디 찾기, 비밀번호 찾기
+     * 3. 아이디 찾기, 비밀번호 찾기 X
      *
      * 4. 회원 탈퇴 O
      */
@@ -36,6 +40,9 @@ public class MyPageController {
 
     @Autowired
     private ExpertService expertService;
+
+    @Autowired
+    private DepartmentRepository departmentRepository;
 
 
     @Secured("ROLE_USER")
@@ -134,6 +141,10 @@ public class MyPageController {
 
             model.addAttribute("expert", expertResponse);
 
+            List<Department> departments = departmentRepository.findAll();
+
+            model.addAttribute("departments", departments); // 부서의 목록을 보여준다.
+
             return "mypage/modifyExpert";
 
         }
@@ -175,6 +186,37 @@ public class MyPageController {
             return "redirect:/mypage/expert";
         }
     }
+
+    /**
+     * 회원의 아이디를 찾는 폼을 반환하는 컨트롤러
+     */
+    @GetMapping("/")
+    public String findIdForm(){
+        return "mypage/findId";
+    }
+
+
+
+    /**
+//     * 프론트에 이름, 이메일 혹은 certificate_number 전달받아서 아이디를 찾는다.
+//     */
+//    @PostMapping("/mypage/findId")
+//    public String findId(@RequestParam(required = false) String name,
+//                         @RequestParam(required = false) String email,
+//                         @RequestParam(required = false) String certificate_number
+//                        ,Authentication authentication , Model model){
+//
+//        // 회원이 일반 환자인 경우
+//        if(authentication.getPrincipal() instanceof PrincipalDetails){
+//
+//            userService.findId(name, email, ((PrincipalDetails) authentication.getPrincipal());
+//
+//        }else{
+//
+//        }
+//    }
+
+
 
 
 
