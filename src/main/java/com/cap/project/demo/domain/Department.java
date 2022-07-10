@@ -21,7 +21,7 @@ public class Department {
     private String type;
 
     // department know list of experts
-    @OneToMany(mappedBy = "department")
+    @OneToMany(mappedBy = "department" )
     private List<Expert> experts = new ArrayList<>();
 
     public Department() {

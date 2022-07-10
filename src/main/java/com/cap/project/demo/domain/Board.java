@@ -3,6 +3,8 @@ package com.cap.project.demo.domain;
 import jdk.jfr.Enabled;
 import lombok.Builder;
 import lombok.Getter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ public class Board extends BaseTimeEntity {
     //join with user table
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id" , nullable = false , foreignKey = @ForeignKey(name = "fk_board_user"))
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     // board title
@@ -36,7 +39,7 @@ public class Board extends BaseTimeEntity {
     private String emotion;
 
     // board know onw boardcmt
-    @OneToMany(mappedBy = "board")
+    @OneToMany(mappedBy = "board" )
     private List<BoardCmt> boardCmts = new ArrayList<>();
 
     public Board() {

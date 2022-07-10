@@ -2,6 +2,8 @@ package com.cap.project.demo.domain;
 
 import lombok.Builder;
 import lombok.Getter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -18,16 +20,19 @@ public class BoardCmt extends BaseTimeEntity {
     // join with user table
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id" , foreignKey = @ForeignKey(name = "fk_board_cmt_user"))
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     // join with expert table
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "expert_id" , foreignKey = @ForeignKey(name = "fk_board_cmt_expert"))
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Expert expert;
 
     // join with board table
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id" , nullable = false , foreignKey = @ForeignKey(name = "fk_board_cmt_board"))
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Board board;
 
     // board_cmt_content

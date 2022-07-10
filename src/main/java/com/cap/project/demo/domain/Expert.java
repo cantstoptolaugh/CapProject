@@ -3,6 +3,8 @@ package com.cap.project.demo.domain;
 import com.cap.project.demo.domain.enums.Role;
 import lombok.Builder;
 import lombok.Getter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -33,6 +35,7 @@ public class Expert {
     // join with department table
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id" , nullable = false , foreignKey = @ForeignKey(name = "fk_expert_department"))
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Department department;
 
     //hospital_name

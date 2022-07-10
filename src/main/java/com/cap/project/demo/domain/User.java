@@ -47,7 +47,7 @@ public class User {
     private String providerId; // 소셜로그인에서 제공 받은 sub(여러 자리의 숫자)
 
     // user can know list of boards
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user" )
     private List<Board> boards = new ArrayList<>();
 
     @PrePersist
