@@ -124,7 +124,7 @@ public class MyPageController {
 
             model.addAttribute("user", userResponse);
 
-            return "환자 기본 정보 변경하는 폼으로 이동 (아이디 , 비밀번호는 변경 X)";
+            return "mypage/modifyUser";
 
         }else{
 
@@ -134,7 +134,7 @@ public class MyPageController {
 
             model.addAttribute("expert", expertResponse);
 
-            return "심리 상담가 정보 변경하는 폼으로 이동 (아이디 , 비밀번호 , 사진 변경 X)";
+            return "mypage/modifyExpert";
 
         }
     }
