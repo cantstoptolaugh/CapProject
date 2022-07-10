@@ -83,4 +83,24 @@ public class ExpertService {
 
         return expertResponses;
     }
+
+    public ExpertResponse getExpertInfo(Long db_id) {
+
+        Expert expert = expertRepository.findById(db_id).orElse(null);
+
+        if(expert != null){
+            return ExpertResponse.builder()
+                        .db_id(expert.getId())
+                        .name(expert.getName())
+                        .age(expert.getAge())
+                        .career(expert.getCareer())
+                        .certificate_number(expert.getCertificate_number())
+                        .hospital_name(expert.getHospital_name())
+                        .department(expert.getDepartment())
+                        .attachedFiles(expert.getAttachedFiles())
+                        .build();
+        }
+
+        return null;
+    }
 }
