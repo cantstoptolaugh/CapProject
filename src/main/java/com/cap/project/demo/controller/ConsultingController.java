@@ -26,4 +26,9 @@ public class ConsultingController {
         return "consulting/expertList";
     }
 
+    @GetMapping("/chat/list")
+    public String chatList(Model model) {
+        return "consultingchat/consulginchat";
+    }
+
 }
