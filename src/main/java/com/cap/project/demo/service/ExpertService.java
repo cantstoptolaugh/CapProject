@@ -1,13 +1,16 @@
 package com.cap.project.demo.service;
 
+import com.cap.project.demo.config.auth.PrincipalDetailsForExpert;
 import com.cap.project.demo.domain.Attachment;
 import com.cap.project.demo.domain.Department;
 import com.cap.project.demo.domain.Expert;
 import com.cap.project.demo.dto.request.ExpertJoinRequest;
+import com.cap.project.demo.dto.request.PasswordCheckDto;
 import com.cap.project.demo.dto.response.ExpertResponse;
 import com.cap.project.demo.repository.DepartmentRepository;
 import com.cap.project.demo.repository.ExpertRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -102,5 +105,24 @@ public class ExpertService {
         }
 
         return null;
+    }
+
+    public String checkPasswordForWithdrawal(PasswordCheckDto passwordCheckDto, PrincipalDetailsForExpert principal) {
+
+        String rawPw = passwordCheckDto.getPassword();
+
+
+        if(bCryptPasswordEncoder.matches(rawPw, principal.getPassword())){
+
+            // delete expert from database
+            expertRepository.deleteById(principal.getExpert().getDb_id());
+
+            // need to clear spring Security context
+            SecurityContextHolder.clearContext();
+
+            return "success";
+        }
+        return "fail";
+
     }
 }

@@ -1,12 +1,15 @@
 package com.cap.project.demo.service;
 
+import com.cap.project.demo.config.auth.PrincipalDetails;
 import com.cap.project.demo.domain.User;
 import com.cap.project.demo.domain.enums.Role;
+import com.cap.project.demo.dto.request.PasswordCheckDto;
 import com.cap.project.demo.dto.request.UserJoinRequest;
 import com.cap.project.demo.dto.response.UserResponse;
 import com.cap.project.demo.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -83,6 +86,26 @@ public class UserService {
         }
 
         return null;
+
+    }
+
+    public String checkPasswordForWithdrawal(PasswordCheckDto passwordCheckDto, PrincipalDetails principal) {
+
+        String rawPw = passwordCheckDto.getPassword();
+
+        // need to check encodePw with principal.getPassword()
+        if(bCryptPasswordEncoder.matches(rawPw, principal.getPassword())) {
+
+            // if password is correct, need to withdraw user
+            userRepository.deleteById(principal.getUser().getDb_id());
+
+            // need to clear security context
+            SecurityContextHolder.clearContext();
+
+            return "success";
+        }else{
+            return "fail";
+        }
 
     }
 }

@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class MyPageController {
@@ -65,40 +66,46 @@ public class MyPageController {
         return "mypage/withdrawal";
     }
 
-//    // check password for withdrawal
-//    @PostMapping("/paassword/checkForWithdrawal")
-//    public String checkPasswordForWithdrawal(@ModelAttribute PasswordCheckDto passwordCheckDto,
-//                                             Authentication authentication) {
-//
-//        // 1. 우선 html에서 js로 인증되지 않는 두개의 비밀번호가 일치하는지 확인하는 작업 후 회원탈퇴 버튼 활성화 (프론트 처리)
-//
-//        // 2. 2개의 비밀번호가 일치하다는 가정하에 컨트롤러로 들오온다.
-//
-//        // 3. 컨트롤러로 들어오면 principalDetail를 통해서 로그인한 사용자의 실제 비밀번호랑 일치하는지 확인 ("메시지 직접 출력")
-//
-//            // 3.1 만약 일치하면 실질적인 회원탈퇴 진행 후 , 로그아웃 된 상태로 main 페이지 이동
-//
-//            // 3.2 만약 일치하지 않는다면 , 일치하지 않는다는 메시지를 띄워주고 다시 비밀번호를 입력하는 페이지로 이동
-//
-//        // check authentication class type
-//        if(authentication.getPrincipal() instanceof PrincipalDetails){
-//            userService.checkPasswordForWithdrawal(passwordCheckDto, (PrincipalDetails) authentication.getPrincipal());
-//        }else{
-//            expertService.checkPasswordForWithdrawal(passwordCheckDto, (PrincipalDetailsForExpert) authentication.getPrincipal());
-//        }
-//
-//    }
-//
-//
-//
-//    // patient Withdrawal , before withdrawal need to check the password
-//    @PostMapping("/withdrawal")
-//    public
-//
-//
-//
-//
+    // check password for withdrawal
+    @PostMapping("/password/checkForWithdrawal")
+    public String checkPasswordForWithdrawal(@ModelAttribute PasswordCheckDto passwordCheckDto,
+                                             Authentication authentication, Model model) {
 
+        // 1. 우선 html에서 js로 인증되지 않는 두개의 비밀번호가 일치하는지 확인하는 작업 후 회원탈퇴 버튼 활성화 (프론트 처리)
+
+        // 2. 2개의 비밀번호가 일치하다는 가정하에 컨트롤러로 들오온다.
+
+        // 3. 컨트롤러로 들어오면 principalDetail를 통해서 로그인한 사용자의 실제 비밀번호랑 일치하는지 확인 ("메시지 직접 출력")
+
+            // 3.1 만약 일치하면 실질적인 회원탈퇴 진행 후 , 로그아웃 된 상태로 main 페이지 이동
+
+            // 3.2 만약 일치하지 않는다면 , 일치하지 않는다는 메시지를 띄워주고 다시 비밀번호를 입력하는 페이지로 이동
+
+        // check authentication class type
+        if(authentication.getPrincipal() instanceof PrincipalDetails){
+            String status = userService.checkPasswordForWithdrawal(passwordCheckDto, (PrincipalDetails) authentication.getPrincipal());
+
+            if(status.equals("success")) {
+                model.addAttribute("message", "회원탈퇴를 완료하였습니다.");
+                return "redirect:/logout";
+            } else {
+                model.addAttribute("message", "비밀번호가 일치하지 않습니다.");
+                return "redirect: /mypage/withdrawal";
+            }
+
+        }else{
+            String status = expertService.checkPasswordForWithdrawal(passwordCheckDto, (PrincipalDetailsForExpert) authentication.getPrincipal());
+
+            if(status.equals("success")) {
+                model.addAttribute("message", "회원탈퇴를 완료하였습니다.");
+                return "redirect:/logout";
+            } else {
+                model.addAttribute("message", "비밀번호가 일치하지 않습니다.");
+                return "redirect: /mypage/withdrawal";
+            }
+        }
+
+    }
 
 
 
