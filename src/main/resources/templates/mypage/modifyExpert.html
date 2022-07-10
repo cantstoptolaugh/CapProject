@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+
+    <!-- 구글폰트  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Song+Myung&display=swap" rel="stylesheet">
+
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>회원정보 수정</title>
+
+    <!-- signup css -->
+    <link rel="stylesheet" href="/css/mainPage/common.css">
+    <link rel="stylesheet" href="/css/mainPage/signup.css">
+
+</head>
+
+<body>
+
+<div class="container py-3">
+    <!-- nav bar -->
+    <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+        <a th:href="@{/}" class="d-flex align-items-center text-dark text-decoration-none">
+            <a th:href="@{/}"><img src="/img/mainPage/MainIcon.png" height="50px" width="50px"></a>
+            <span class="fs-4">마음이</span>
+            <span class="fs-1">
+                            <h6>마음을 치유하고싶은 이들을 위해</h6>
+                        </span>
+        </a>
+
+        <script th:inline="javascript">
+            let logout = !isAuthenticated();
+            if(logout) {
+                alert("로그아웃 되셨습니다.");
+            }
+        </script>
+
+        <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+            <a class="me-3 py-2 text-dark text-decoration-none" th:href="@{/face/emotion}">감정 분석</a>
+            <a class="me-3 py-2 text-dark text-decoration-none" th:href="@{/boards}">마음이들</a>
+            <a class="me-3 py-2 text-dark text-decoration-none" th:href="@{/consulting}" >상담</a>
+            <a class="me-3 py-2 text-dark text-decoration-none" th:href="@{/chat/list}" >상담 목록</a>
+            <a th:href="@{/login}" sec:authorize="!isAuthenticated()" class="py-2 text-dark text-decoration-none">로그인</a>
+            <div th:object="${session.user}" style="display:flex; align-items: center;">
+                <a th:href="@{/mypage/patient}" sec:authorize="hasRole('ROLE_USER')" class="me-3 py-2 text-dark text-decoration-none">마이페이지</a>
+                <a th:href="@{/mypage/expert}" sec:authorize="hasRole('ROLE_EXPERT')" class="me-3 py-2 text-dark text-decoration-none">마이페이지</a>
+                <a th:href="@{/logout}" sec:authorize="isAuthenticated()" class="me-3 py-2 text-dark text-decoration-none">로그아웃</a>
+            </div>
+        </nav>
+    </div>
+    <!-- end nav bar -->
+
+        <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+            <h1 class="display-4 fw-normal">회원정보 수정 </h1>
+        </div>
+    </header>
+    <!-- end 헤더 (네비게이션바) -->
+
+    <!-- signup form -->
+    <main class="main_signUp">
+        <div class="card" style="width: 58.5rem;">
+            <div class="card-body">
+                <div>
+                    <br>
+                    <!-- form 입력 -->
+                    <form action="/mypage/expert/profile" th:object="${expert}" method="post">
+                        <input type="hidden" name="_method" value="put"/>
+                        <table style="display:flex; justify-content: center;">
+                            <tr>
+                                <td colspan="3">
+                                    <h3>전문가 이름</h3>
+                                </td>
+                                <td colspan="2"></td>
+                                <td colspan="7">
+                                    <input class="input" type="text" name="name" th:field="*{name}" required>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <h3>전문가 경력</h3>
+                                </td>
+                                <td colspan="2"></td>
+                                <td colspan="7"><input class="input" type="text" name="career" th:field="*{career}" required>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th colspan="3">
+                                    <h3>전문가 병원 이름</h3></th>
+                                <th colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                <th colspan="7">
+                                    <input class="input" type="text" name="hospital_name" th:field="*{hospital_name}" required>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <h3>전문가 부서</h3>
+                                </td>
+                                <td colspan="2"></td>
+                                <td colspan="7">
+                                    <select class="input" th:field="${expert.department.type}" required name="department_id">
+                                        <option value="">선택</option>
+                                        <option th:each="department : ${departments}"
+                                                th:value="${department.id}"
+                                                th:text="${department.type}"></option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th colspan="3">
+                                    <h3>전문가 나이</h3></th>
+                                <th colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                <th colspan="7">
+                                    <input class="input" type="text" name="age" th:field="*{age}" required>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th colspan="3">
+                                    <h3>전문가 자격 증명 번호</h3></th>
+                                <th colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                <th colspan="7"><input class="input" type="text" name="certificate_number" th:field="*{certificate_number}"
+                                                       required>
+                                </th>
+                            </tr>
+                            <tr style="display:flex; justify-content:center;">
+                                <td>
+                                    <br>
+                                    <button class="btn btn-dark" type="submit">수정</button>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- end signup form -->
+
+    <!-- 푸터 -->
+    <footer class="pt-4 my-md-5 pt-md-5 border-top">
+        <div class="row">
+            <div style="width: 100%; text-align: center;" class="col-6 col-md">
+                <h3 style="margin-bottom:20px;">융복합 캡스톤 디자인 - 마음이</h3>
+                <ul class="list-unstyled text-small">
+                    <li class="mb-1"><a class="link-secondary text-decoration-none">팀장 : 컴퓨터 소프트웨어 공학과 20193117 이주혁</a></li>
+                    <li class="mb-1"><a class="link-secondary text-decoration-none">팀원 : 컴퓨터 소프트웨어 공학과 20172178 이수찬</a></li>
+                    <li class="mb-1"><a class="link-secondary text-decoration-none">팀원 : 컴퓨터 소프트웨어 공학과 20172705 손진영</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</div>
+</body>
+</html>
