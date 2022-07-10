@@ -66,4 +66,23 @@ public class UserService {
         return userLoginResponse;
     }
 
+    public UserResponse getUserInfo(Long db_id) {
+
+        User user = userRepository.findById(db_id).orElse(null);
+
+        if(user != null) {
+            return UserResponse.builder()
+                    .db_id(user.getId())
+                    .provider(user.getProvider())
+                    .name(user.getName())
+                    .age(user.getAge())
+                    .email(user.getEmail())
+                    .role(user.getRoleType())
+                    .nickname(user.getNickname())
+                    .build();
+        }
+
+        return null;
+
+    }
 }
