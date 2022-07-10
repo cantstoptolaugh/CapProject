@@ -187,37 +187,6 @@ public class MyPageController {
         }
     }
 
-    /**
-     * 회원의 아이디를 찾는 폼을 반환하는 컨트롤러
-     */
-    @GetMapping("/")
-    public String findIdForm(){
-        return "mypage/findId";
-    }
-
-
-
-    /**
-//     * 프론트에 이름, 이메일 혹은 certificate_number 전달받아서 아이디를 찾는다.
-//     */
-//    @PostMapping("/mypage/findId")
-//    public String findId(@RequestParam(required = false) String name,
-//                         @RequestParam(required = false) String email,
-//                         @RequestParam(required = false) String certificate_number
-//                        ,Authentication authentication , Model model){
-//
-//        // 회원이 일반 환자인 경우
-//        if(authentication.getPrincipal() instanceof PrincipalDetails){
-//
-//            userService.findId(name, email, ((PrincipalDetails) authentication.getPrincipal());
-//
-//        }else{
-//
-//        }
-//    }
-
-
-
 
 
 }

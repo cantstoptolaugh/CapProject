@@ -3,7 +3,6 @@ package com.cap.project.demo.controller;
 import com.cap.project.demo.dto.response.ExpertResponse;
 import com.cap.project.demo.service.ExpertService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +27,7 @@ public class ConsultingController {
 
     @GetMapping("/chat/list")
     public String chatList(Model model) {
-        return "consultingchat/consulginchat";
+        return "consultingchat/consultingchating";
     }
 
 }
