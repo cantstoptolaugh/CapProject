@@ -1,4 +1,8 @@
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<!doctype html>
+
+<!-- thymeleaf 작성 위한 속성 -->
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+
 <head>
     <!-- 구글폰트  -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -7,65 +11,23 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>설문조사 결과</title>
+    <link rel="icon" href="/img/mainPage/MainIcon.png"/>
+    <title>상담</title>
 
-    <!-- bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-    crossorigin="anonymous"></script>
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
 
-
-
-    <!-- JS 변수값 초기화 -->
-    <script>
-        var ManicDepression = "[[${ManicDepression}]]";
-        var Depression = "[[${Depression}]]";
-        var PanicDisorder = "[[${PanicDisorder}]]";
-        var Schizophrenia = "[[${Schizophrenia}]]";
-        var Delusion = "[[${Delusion}]]";
-        var Sum = "[[${Sum}]]";
-    </script>
-
-    <!-- 설문 조사 결과에 맞는 원형 그래프 -->
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-
-        google.charts.load('visualization', {'packages': ['corechart']});
-
-        google.charts.setOnLoadCallback(drawChart);
-
-        function drawChart() {
-            var data = new google.visualization.DataTable();
-            data.addColumn('string', 'Sentiment');
-            data.addColumn('number', 'Rating');
-            data.addRows([
-                ["우울증", Number(Depression)],
-                ["조울증", Number(ManicDepression)],
-                ["공황장애", Number(PanicDisorder)],
-                ["조현증", Number(Schizophrenia)],
-                ["망상장애", Number(Delusion)],
-                ["정상 범주", Number(Sum)]
-            ]);
-
-            var options = {
-                'title': "설문 조사 결과를 바탕으로 분석한 원형 그래프입니다."
-            };
-
-            var chart = new google.visualization.PieChart(document.getElementById('SentimentGraph'));
-                chart.draw(data, options);
-            }
-    </script>
-
+    <!-- main css -->
+    <link rel="stylesheet" href="/css/consulting/consultingList.css">    
     <link rel="stylesheet" href="/css/mainPage/common.css">
-
 </head>
 
 <body>
 
 <div class="container py-3">
-    
     <!-- 헤더 (네비게이션바) -->
     <header>
         <!-- nav bar -->
@@ -99,34 +61,31 @@
             </nav>
         </div>
         <!-- end nav bar -->
-
-        <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
-            <h1 class="display-4 fw-normal">
-                회원가입
-                <h4 style="color:gray;">
-                    사용자 설문조사 결과
-                </h4>
-            </h1>
-        </div>
     </header>
-    <!-- end 헤더 (네비게이션바) -->
+    <!-- close 헤더 (네비게이션바) -->
 
-    <main style="display:flex; flex-direction:column; justify-content: center; align-items:center;">
-        <section>
-            <div id="SentimentGraph" style="width: 900px; height: 500px;"></div>
-        </section>
-        <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+    <!-- 마음이 전문가 text -->
+    <section class="s1Text">
+        <h1>마음이 전문가</h1>
+        <p>마음이의 전문가 리스트를 확인해보세요!</p>
+    </section>
+    <!-- end 마음이 전문가 text -->
 
-            <p class="fs-5 ">
-                다른 정신 건강 질환이 의심되오나, 정상적인 범주가 훨씬 많으신 것 같아요.
-                <br>
-                <b>설문 조사를 다시 하고 싶으시면 "뒤로가기" 버튼을 눌러주세요.</b>
-            </p>
+    <!-- expert card -->
+    <div class="row">
+        <div class="col-sm-3" th:each="expert : ${experts}">
+            <div style="width: 18rem;" class="s2Card card">
+                <img style="height: 200px;" th:src="@{/images/{filename}(filename=${expert.attachedFiles.get(0).storeFilename})}" class="card-img-top">
+                <div class="s2Card card-body">
+                  <p class="mb-2 card-text" th:text="${expert.name}">전문가 이름</p>
+                  <p class="mb-2 card-text" th:text="${expert.hospital_name}">병원 이름</p>
+                    <p class="card-text" th:text="${expert.department.type}">부서 이름</p>
+                    <a class="btn btn-light">이동하기</a>
+                </div>
+            </div>
         </div>
-        <section style="display:flex; justify-content: center;">
-            <a class="btn btn-dark" th:href="@{/survey}"> 뒤로가기 </a>
-        </section>
-    </main>
+    </div>
+    <!-- end expert card -->
 
     <!-- 푸터 -->
     <footer class="pt-4 my-md-5 pt-md-5 border-top">
@@ -141,7 +100,10 @@
             </div>
         </div>
     </footer>
-
 </div>
+
+
+
 </body>
+
 </html>
