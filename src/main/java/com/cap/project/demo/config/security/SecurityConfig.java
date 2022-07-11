@@ -13,8 +13,14 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
@@ -31,17 +37,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PrincipalOauth2UserService principalOauth2UserService;
 
-    private final BCryptPasswordEncoder passwordEncoder;
+    private final LogoutSuccessHandler logoutSuccessHandler;
+
 
     @Autowired
-    public SecurityConfig(LoginFailureHandler loginFailureHandler, LoginSuccessHandler loginSuccessHandler,
-                          WebAccessDeniedHandler webAccessDeniedHandler , PrincipalOauth2UserService principalOauth2UserService
-                          , BCryptPasswordEncoder passwordEncoder) {
+    public SecurityConfig(LoginFailureHandler loginFailureHandler, LoginSuccessHandler loginSuccessHandler
+                          , WebAccessDeniedHandler webAccessDeniedHandler
+                          , LogoutSuccessHandler logoutSuccessHandler
+                          , PrincipalOauth2UserService principalOauth2UserService) {
         this.loginFailureHandler = loginFailureHandler;
         this.loginSuccessHandler = loginSuccessHandler;
         this.webAccessDeniedHandler = webAccessDeniedHandler;
+        this.logoutSuccessHandler = logoutSuccessHandler;
         this.principalOauth2UserService = principalOauth2UserService;
-        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -64,10 +72,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/loginProcess")
                 .failureHandler(loginFailureHandler)
                 .successHandler(loginSuccessHandler)
+
                 .and()
                 .logout()
-                .logoutSuccessUrl("/")
+                .logoutSuccessHandler(logoutSuccessHandler)
+                .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
+
                 .and()
                 .exceptionHandling().accessDeniedHandler(webAccessDeniedHandler)
                 .and()
