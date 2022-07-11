@@ -34,6 +34,7 @@ public class PrincipalDetails implements UserDetails , OAuth2User {
                 .db_id(user.getDb_id())
                 .name(user.getName())
                 .nickname(user.getNickname())
+                .email(user.getEmail())
                 .age(user.getAge())
                 .role(user.getRole()).build();
 

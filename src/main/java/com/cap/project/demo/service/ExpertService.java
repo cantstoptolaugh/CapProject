@@ -108,6 +108,7 @@ public class ExpertService {
         return null;
     }
 
+    @Transactional
     public String checkPasswordForWithdrawal(PasswordCheckDto passwordCheckDto, PrincipalDetailsForExpert principal) {
 
         String rawPw = passwordCheckDto.getPassword();
@@ -127,9 +128,10 @@ public class ExpertService {
 
     }
 
+    @Transactional
     public String updateExpertInfo(ExpertUpdateDto expertUpdateDto, Long db_id) {
 
-            Expert expert = expertRepository.findById(db_id).orElse(null);
+        Expert expert = expertRepository.findById(db_id).orElse(null);
 
         Department department = departmentRepository.findById(expertUpdateDto.getDepartment_id()).orElse(null);
 
@@ -140,5 +142,25 @@ public class ExpertService {
             }else{
                 return "fail";
             }
+    }
+
+    public String findUsername(String name, String certificationNumber) {
+
+        Expert expert = expertRepository.findByNameAndCertificateNumber(name, certificationNumber);
+
+        if(expert != null){
+            return expert.getLoginId();
+        }
+        return "fail_find_username";
+    }
+
+    public String findPassword(String name, String id, String certificationNumber) {
+
+        Expert expert = expertRepository.findByNameAndLoginIdAndCertificateNumber(name, id, certificationNumber);
+
+        if(expert != null){
+            return expert.getPassword();
+        }
+        return "fail_find_password";
     }
 }

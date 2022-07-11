@@ -23,6 +23,7 @@ public class PrincipalDetailsForExpert implements UserDetails {
                 .db_id(expert.getDb_id())
                 .name(expert.getName())
                 .age(expert.getAge())
+                .certificate_number(expert.getCertificate_number())
                 .role(expert.getRole()).build();
 
         return expertDto;

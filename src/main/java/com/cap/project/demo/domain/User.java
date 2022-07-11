@@ -80,4 +80,8 @@ public class User {
         this.age = userUpdateDto.getAge();
         this.email = userUpdateDto.getEmail();
     }
+
+    public void updatePassword(String password) {
+        this.password = password;
+    }
 }
