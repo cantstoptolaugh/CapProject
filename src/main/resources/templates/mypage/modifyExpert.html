@@ -73,9 +73,9 @@
                 <div>
                     <br>
                     <!-- form 입력 -->
-                    <form action="/mypage/expert/profile" th:object="${expert}" method="post">
+                    <form action="/mypage/expert/profile"  method="post">
                         <input type="hidden" name="_method" value="put"/>
-                        <table style="display:flex; justify-content: center;">
+                        <table style="display:flex; justify-content: center;" th:object="${expert}">
                             <tr>
                                 <td colspan="3">
                                     <h3>전문가 이름</h3>
@@ -107,11 +107,12 @@
                                 </td>
                                 <td colspan="2"></td>
                                 <td colspan="7">
-                                    <select class="input" th:field="${expert.department.type}" required name="department_id">
+                                    <select class="input" required name="department_id">
                                         <option value="">선택</option>
-                                        <option th:each="department : ${departments}"
-                                                th:value="${department.id}"
-                                                th:text="${department.type}"></option>
+                                        <option th:each="val : ${departments}"
+                                                th:value="${val.id}"
+                                                th:text="${val.type}"
+                                                ></option>
                                     </select>
                                 </td>
                             </tr>
