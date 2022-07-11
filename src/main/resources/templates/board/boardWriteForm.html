@@ -20,9 +20,11 @@
 
     <!-- 위치 잡아주는 CSS -->
     <link rel="stylesheet" href="/css/mainPage/common.css">
+
 </head>
 
 <body>
+    <div class="container py-3">
         <header>
             <!-- nav bar -->
             <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
@@ -60,7 +62,7 @@
         <!-- Community form -->
         <h2 style="text-align: center; margin:30px 0px;">마음이들 작성</h2>
 
-        <form th:action="@{/boards}" method="post">
+        <form style="display:flex; justify-content:center; width: 99%" th:action="@{/boards}" method="post">
             <div class="row">
                 <div style="margin-bottom:30px;" class="col-12">
                     <div class="form-group">
@@ -96,6 +98,7 @@
             </div>
         </footer>
     </div>
+</div>
 
 
 

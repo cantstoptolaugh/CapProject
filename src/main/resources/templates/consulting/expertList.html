@@ -80,7 +80,7 @@
                   <p class="mb-2 card-text" th:text="${expert.name}">전문가 이름</p>
                   <p class="mb-2 card-text" th:text="${expert.hospital_name}">병원 이름</p>
                     <p class="card-text" th:text="${expert.department.type}">부서 이름</p>
-                    <a class="btn btn-light">이동하기</a>
+                    <a class="btn btn-light" th:href="@{/chat/list}">이동하기</a>
                 </div>
             </div>
         </div>

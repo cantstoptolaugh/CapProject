@@ -87,33 +87,39 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="font-size:22px;">PW</td>
+                                    <td style="font-size:22px;"><p style="padding-top:10px;padding-right:10px;">PW</p></td>
                                     <td>
                                         <input class="input" type="password" min="6" max="10" name="password">
                                     </td>
                                 </tr>             
                             </table>
                             <br>
-                            <table style="display:flex; justify-content: space-evenly;" class="mb-4">
+                            <table style="display:flex; justify-content: space-evenly;">
                                 <tr>
                                     <td>
-                                        <input type="radio" name="userType" value="patient" style="margin-right: 5px;" required >회원
+                                        <div style="width:20px; height: 10px; padding-left: 10px;"></div>
                                     </td>
-                                    <td>
-                                        <div style="margin-right:5px;"></div>
+                                    <td class="select">
+                                        <input type="radio" id="selectA" name="userType" value="patient" style="margin-right: 5px;" required >
+                                        <label for="selectA">회원</label>
                                     </td>
-                                    <td>
-                                        <input type="radio" name="userType" value="expert" style="margin-right: 5px;" required >상담가
+                                    <td class="select">
+                                        <input type="radio" id="selectB" name="userType" value="expert" style="margin-right: 5px;" required >
+                                        <label for="selectB">상담가</label>
                                     </td>
+                                </tr>          
+                            </table>
+                            <table class="mb-3" style="display:flex; justify-content: center;">
+                                <tr>
                                     <td>
-                                        <div style="margin-right:5px;"></div>
+                                        <div style="width: 20px; height: 10px;"></div>
                                     </td>
                                     <td>
                                         <button type="submit" class="btn btn-dark">로그인</button>
                                     </td>
-                                </tr>          
+                                </tr>
                             </table>
-                            <table style="display:flex; justify-content: center;">
+                            <table style="display:flex; justify-content: center; margin-left: 24px">
                                 <tr>
                                     <td><a th:href="@{/survey}" class="btn btn-dark">회원가입</a></td>
                                     <td><a th:href="@{/join/expert}" class="btn btn-dark">전문가 회원가입</a></td>
