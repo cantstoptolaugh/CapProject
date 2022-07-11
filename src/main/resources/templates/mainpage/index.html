@@ -1,5 +1,5 @@
 <!-- thymeleaf 작성 위한 속성 -->
-<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="ko">
 
 <head>
     <!-- 구글폰트  -->
@@ -38,12 +38,6 @@
                         </span>
             </a>
 
-            <script th:inline="javascript">
-                let logout = !isAuthenticated();
-                if(logout) {
-                    alert("로그아웃 되셨습니다.");
-                }
-            </script>
 
             <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
                 <a class="me-3 py-2 text-dark text-decoration-none" th:href="@{/face/emotion}">감정 분석</a>
@@ -146,5 +140,15 @@
 
 
 </body>
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+    // 회원 탈퇴 혹은 로그아웃 시 사용되는 JS , 쿼리 파라미터로 넘겨온 값을 활용하여 상태를 알려준다.
+    var message = "[[${alertmsg}]]";
+    if(message){
+        alert(message);
+    }
+</script>
 
 </html>
