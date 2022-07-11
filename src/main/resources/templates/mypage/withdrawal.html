@@ -100,27 +100,26 @@
                                 <tr>
                                     <td colspan="3">
                                         <h3>비밀번호</h3>
-                                        </label>
                                     </td>
                                     <td colspan="2"></td>
-                                    <td colspan="7"><input class="input" type="password" name="password"
+                                    <td colspan="7"><input class="input" type="password" name="password" id="password"
                                             placeholder="비밀번호를 입력해주세요." required>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td colspan="3">
-                                        <h3>비밀번호 확인</h3>
-                                        </label>
+                                        <h3>비밀번호 재입력</h3>
                                     </td>
                                     <td colspan="2"></td>
-                                    <td colspan="7"><input class="input" type="password" name="passwordForSameCheck"
+                                    <td colspan="7"><input class="input" type="password" name="passwordForSameCheck" id="passwordForSameCheck"
                                             placeholder="다시 한번 비밀번호를 입력해주세요." required>
+                                        <div id="resultDiv"></div>
                                     </td>
                                 </tr>
                                 
                                 <tr style="display:flex; justify-content:center;">
                                     <td>
-                                        <br><button class="btn btn-dark" type="submit">회원탈퇴</button>
+                                        <br><button class="btn btn-dark" type="submit" id="submitBtn" disabled>회원탈퇴</button>
                                     </td>
                                 </tr>
                             </table>
@@ -148,5 +147,32 @@
 
 
 </body>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#passwordForSameCheck').keyup(function() {
+            var password = $('#password').val();
+            var passwordForSameCheck = $('#passwordForSameCheck').val();
+            if (password != passwordForSameCheck) {
+                $('#resultDiv').html('<font color="red">비밀번호가 동일하지 않습니다.</font>');
+                $('#submitBtn').attr('disabled', true);
+            } else {
+                $('#resultDiv').html('<font color="green">비밀번호가 동일합니다.</font>');
+                $('#submitBtn').attr('disabled', false);
+
+        }});
+    });
+
+
+</script>
+<script type="text/javascript">
+    // get message from model
+    var message = "[[${message}]]";
+    if (message != "") {
+        alert(message);
+    }
+
+</script>
 
 </html>
