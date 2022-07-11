@@ -125,4 +125,37 @@ public class UserService {
 
         return "success";
     }
+
+    public String findUsername(String name, String email) {
+
+        User user = userRepository.findByNameAndEmail(name, email);
+
+        if(user != null) {
+            return user.getLoginId();
+        }
+
+        return "fail_find_username";
+    }
+
+    public String findPassword(String name, String id, String email) {
+
+        User user = userRepository.findByNameAndLoginIdAndEmail(name, id, email);
+
+        if(user != null) {
+            return user.getPassword();
+        }
+
+        return "fail_find_password";
+    }
+
+    @Transactional
+    public void updatePassword(String loginId, String password) {
+
+        String encodePw = bCryptPasswordEncoder.encode(password);
+
+        userRepository.findByLoginId(loginId).ifPresent(user -> {
+            user.updatePassword(encodePw);
+            userRepository.save(user);
+        });
+    }
 }

@@ -92,22 +92,24 @@ public class MyPageController {
             String status = userService.checkPasswordForWithdrawal(passwordCheckDto, (PrincipalDetails) authentication.getPrincipal());
 
             if(status.equals("success")) {
-                model.addAttribute("message", "회원탈퇴를 완료하였습니다.");
-                return "redirect:/logout";
+
+                // 탈퇴 메시지 넣을 필요 있다.
+                return "redirect:/logout?withdrawal=success";
             } else {
                 model.addAttribute("message", "비밀번호가 일치하지 않습니다.");
-                return "redirect:/mypage/withdrawal";
+                return "mypage/withdrawal";
             }
 
         }else{
             String status = expertService.checkPasswordForWithdrawal(passwordCheckDto, (PrincipalDetailsForExpert) authentication.getPrincipal());
 
             if(status.equals("success")) {
-                model.addAttribute("message", "회원탈퇴를 완료하였습니다.");
-                return "redirect:/logout";
+
+                // 탈퇴 메시지 넣을 필요 있다.
+                return "redirect:/logout?withdrawal=success";
             } else {
                 model.addAttribute("message", "비밀번호가 일치하지 않습니다.");
-                return "redirect:/mypage/withdrawal";
+                return "mypage/withdrawal";
             }
         }
 
@@ -155,7 +157,7 @@ public class MyPageController {
      *
      */
     @PutMapping("/mypage/patient/profile")
-    public String updatePatientProfile(UserUpdateDto userUpdateDto, @AuthenticationPrincipal PrincipalDetails principalDetails
+    public String updatePatientProfile(@ModelAttribute UserUpdateDto userUpdateDto, @AuthenticationPrincipal PrincipalDetails principalDetails
                                 ,Model model) {
 
         String status = userService.updateUserInfo(userUpdateDto, principalDetails.getUser().getDb_id());
@@ -173,7 +175,7 @@ public class MyPageController {
      * 프론트에서 전달받은 정보를 통해서 심라 상담가 정보를 변경한다.
      */
     @PutMapping("/mypage/expert/profile")
-    public String updateExpertProfile(ExpertUpdateDto expertUpdateDto, @AuthenticationPrincipal PrincipalDetailsForExpert principalDetailsForExpert
+    public String updateExpertProfile(@ModelAttribute ExpertUpdateDto expertUpdateDto, @AuthenticationPrincipal PrincipalDetailsForExpert principalDetailsForExpert
                                 , Model model) {
 
         String status = expertService.updateExpertInfo(expertUpdateDto, principalDetailsForExpert.getExpert().getDb_id());

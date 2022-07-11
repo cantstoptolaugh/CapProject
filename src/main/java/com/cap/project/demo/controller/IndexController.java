@@ -36,7 +36,9 @@ public class IndexController {
     private DepartmentRepository departmentRepository;
 
     @GetMapping("/")
-    public String main(Model model) {
+    public String main(Model model , @RequestParam(value = "alertmsg" , required = false) String alertmsg) {
+
+        model.addAttribute("alertmsg", alertmsg);
         return "mainpage/index";
     }
 
