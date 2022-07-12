@@ -8,16 +8,25 @@ public class SurveyService {
 
     public String[] getPoint(SurveyRequest surveyRequest) {
 
-        String check1 = surveyRequest.getForSure1();
-        String check2 = surveyRequest.getForSure2();
-        String check3 = surveyRequest.getForSure3();
-        String check4 = surveyRequest.getForSure4();
-        String check5 = surveyRequest.getForSure5();
-        String check6 = surveyRequest.getForSure6();
-        String check7 = surveyRequest.getForSure7();
-        String check8 = surveyRequest.getForSure8();
-        String check9 = surveyRequest.getForSure9();
-        String check10 = surveyRequest.getForSure10();
+        // 10개의 질문이 있고 10 , 20 30 40 50 으로 들어온다.
+        // 2개의 질문은 하나의 질병을 대변한다. 2개의 질문에서 최대 득점 가능한 점수는 100점이다.
+        // 2개의 질문에 대해서 총점 60점 이상이면 질병 환자로 간주
+
+
+        int check1 = Integer.parseInt(surveyRequest.getForSure1());
+        int check2 = Integer.parseInt(surveyRequest.getForSure2());
+
+        int check3 = Integer.parseInt(surveyRequest.getForSure3());
+        int check4 = Integer.parseInt(surveyRequest.getForSure4());
+
+        int check5 = Integer.parseInt(surveyRequest.getForSure5());
+        int check6 = Integer.parseInt(surveyRequest.getForSure6());
+
+        int check7 = Integer.parseInt(surveyRequest.getForSure7());
+        int check8 = Integer.parseInt(surveyRequest.getForSure8());
+
+        int check9 = Integer.parseInt(surveyRequest.getForSure9());
+        int check10 = Integer.parseInt(surveyRequest.getForSure10());
 
         int ManicDepression = 0;
         int Depression = 0;
@@ -25,57 +34,46 @@ public class SurveyService {
         int Schizophrenia = 0;
         int Delusion = 0;
 
-        //조울증 판독 10
-        if (check1.equals("yes")||check2.equals("yes"))
+        //조울증 판독 10 (2개의 질문에 대한 최대 득점 가능한 점수는 100점이다. 60점 미만이면 정상 범위)
+        if (check1 + check2 < 60)
         {
             ManicDepression = 10;
-        }
-        //조울증 판독 20
-        if (check1.equals("yes")&&check2.equals("yes"))
-        {
+        }else {
             ManicDepression = 20;
         }
 
         //우울증 판독 10
-        if (check3.equals("yes")||check4.equals("yes"))
+        if (check3 + check4 < 60)
         {
             Depression = 10;
-        }
-        //우울증 판독 20
-        if (check3.equals("yes")&&check4.equals("yes"))
+        }else
         {
             Depression = 20;
         }
 
         //공황장애 판독 10
-        if (check5.equals("yes")||check6.equals("yes"))
+        if (check5 + check6 < 60)
         {
             PanicDisorder = 10;
-        }
-        //공황장애 판독 20
-        if (check5.equals("yes")&&check6.equals("yes"))
+        }else
         {
             PanicDisorder = 20;
         }
 
         //조현증 판독 10
-        if (check7.equals("yes")||check8.equals("yes"))
+        if (check7 + check8 < 60)
         {
             Schizophrenia = 10;
-        }
-        //조현증 판독 20
-        if (check7.equals("yes")&&check8.equals("yes"))
+        }else
         {
             Schizophrenia = 20;
         }
 
         //망상장애 판독 10
-        if (check9.equals("yes")||check10.equals("yes"))
+        if (check9 + check10 < 60)
         {
             Delusion = 10;
-        }
-        //망상장애 판독 20
-        if (check9.equals("yes")&&check10.equals("yes"))
+        }else
         {
             Delusion = 20;
         }
