@@ -75,7 +75,7 @@ public class IndexController {
         List<Department> departments = departmentRepository.findAll();
         model.addAttribute("departments", departments );
 
-        return "mainPage/expertSignUp";
+        return "mainpage/expertSignUp";
     }
 
 

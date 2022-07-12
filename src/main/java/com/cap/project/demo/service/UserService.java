@@ -90,6 +90,7 @@ public class UserService {
 
     }
 
+    @Transactional
     public String checkPasswordForWithdrawal(PasswordCheckDto passwordCheckDto, PrincipalDetails principal) {
 
         String rawPw = passwordCheckDto.getPassword();
@@ -110,6 +111,7 @@ public class UserService {
 
     }
 
+    @Transactional
     public String updateUserInfo(UserUpdateDto userUpdateDto , Long db_id) {
 
             User user = userRepository.findById(db_id).orElse(null);

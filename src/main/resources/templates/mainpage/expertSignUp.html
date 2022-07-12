@@ -34,7 +34,7 @@
         <!-- nav bar -->
         <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
             <a th:href="@{/}" class="d-flex align-items-center text-dark text-decoration-none">
-                <a th:href="@{/}"><img src="/img/mainPage/MainIcon.png" height="50px" width="50px"></a>
+                <a th:href="@{/}"><img src="/img/mainPage/MainIcon.png" height="50px" width="50px" alt=""></a>
                 <span class="fs-4">마음이</span>
                 <span class="fs-1">
                             <h6>마음을 치유하고싶은 이들을 위해</h6>
@@ -65,7 +65,7 @@
 
         <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
             <h1 class="display-4 fw-normal">회원가입<h4>
-                    <의사 / 상담자 사용자>
+
                 </h4>
             </h1>
             <p class="fs-5 text-muted">
@@ -83,7 +83,7 @@
                 <div>
                     <br>
                     <!-- form 입력 -->
-                    <form action = "/join/expert" method="post" , enctype="multipart/form-data">
+                    <form action = "/join/expert" method="post"  enctype="multipart/form-data">
                         <table style="display:flex; justify-content: center;">
                             <tr>
                                 <td colspan="3">
@@ -107,7 +107,9 @@
                                     <h3>전문가 병원 이름</h3></th>
                                 <th colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                 <th colspan="7">
-                                    <input class="input" type="text" name="hospital_name" placeholder="병원 이름 작성" required>
+                                    <label>
+                                        <input class="input" type="text" name="hospital_name" placeholder="병원 이름 작성" required>
+                                    </label>
                                 </th>
                             </tr>
                             <tr>
@@ -118,9 +120,9 @@
                                 <td colspan="7">
                                     <select class="input" required name="department_id">
                                         <option value="">선택</option>
-                                        <option th:each="department : ${departments}"
-                                                th:value="${department.id}"
-                                                th:text="${department.type}"></option>
+                                        <option th:each="val : ${departments}"
+                                                th:value="${val.id}"
+                                                th:text="${val.type}"></option>
                                     </select>
                                 </td>
                             </tr>

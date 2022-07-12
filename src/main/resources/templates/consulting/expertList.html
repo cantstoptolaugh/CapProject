@@ -73,7 +73,7 @@
 
     <!-- expert card -->
     <div class="row">
-        <div class="col-sm-3" th:each="expert : ${experts}">
+        <div class="col-sm-3 mn-4" th:each="expert : ${experts}">
             <div style="width: 18rem;" class="s2Card card">
                 <img style="height: 200px;" th:src="@{/images/{filename}(filename=${expert.attachedFiles.get(0).storeFilename})}" class="card-img-top">
                 <div class="s2Card card-body">
