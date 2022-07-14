@@ -74,8 +74,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(loginSuccessHandler)
 
                 .and()
-                .logout()
-                .logoutSuccessHandler(logoutSuccessHandler)
+                .logout() // 기본적으로 로그 아웃을 위한 url은 /logout이다.
+                .logoutSuccessHandler(logoutSuccessHandler)// logoutSuccessHandler를 만드는 이상, logoutSuceesURL은 의미가 없어진다.
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
 

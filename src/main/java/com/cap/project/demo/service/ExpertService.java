@@ -120,7 +120,7 @@ public class ExpertService {
             expertRepository.deleteById(principal.getExpert().getDb_id());
 
             // need to clear spring Security context
-            SecurityContextHolder.clearContext();
+            //SecurityContextHolder.clearContext();
 
             return "success";
         }
