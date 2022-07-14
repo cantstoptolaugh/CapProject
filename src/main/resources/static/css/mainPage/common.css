@@ -27,13 +27,14 @@
 .select input[type=radio]+label {
     display: inline-block;
     cursor: pointer;
-    height: 24px;
-    width: 90px;
+    height: 40px;
+    width: 120px;
     border: 1px solid #333;
     line-height: 24px;
     text-align: center;
     font-weight: bold;
     font-size: 13px;
+    padding-top: 8px;
 }
 
 .select input[type=radio]+label {
@@ -42,6 +43,36 @@
 }
 
 .select input[type=radio]:checked+label {
+    background-color: #333;
+    color: #fff;
+}
+
+.select1 {
+    padding: 15px 10px;
+}
+
+.select1 input[type=radio] {
+    display: none;
+}
+
+.select1 input[type=radio]+label {
+    display: inline-block;
+    cursor: pointer;
+    height: 24px;
+    width: 100px;
+    border: 1px solid #333;
+    line-height: 24px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.select1 input[type=radio]+label {
+    background-color: #fff;
+    color: #333;
+}
+
+.select1 input[type=radio]:checked+label {
     background-color: #333;
     color: #fff;
 }
