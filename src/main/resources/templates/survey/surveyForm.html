@@ -64,9 +64,8 @@
           <설문조사>
         </h4>
       </h1>
-      <p class="fs-5 text-muted">
-        회원가입을 진행하기전, 당신에게 궁금한 점이 있어요.<br>
-        몇 가지 질문에 답해주시겠어요?
+      <p class="fs-5 ">
+        <b style="color:red;">최근 1주일</b> 기준으로 느낀 감정을 근거로 답변해주세요 :)
       </p>
     </div>
   </header>
@@ -79,16 +78,32 @@
           <!-- 조울증 질문1 -->
           <h4 class="card-title">첫번째 질문이에요.</h4>
           <p class="card-text">
-          <h5>지나치게 흥분하여 사람들에게 소리를 지르거나, 사람들과 싸우거나 말다툼을 한 적이 있나요?</h5>
+          <h5>
+            기분이 너무 들떠서 다른 사람들이 평소의 당신 모습이 아니다 라고 한 적이 있었거나 문제가 생긴 적이 있었다.
+          </h5>
           </p>
           <div class="select">
             <center>
-              <input type="radio" id="select" name="forSure1" th:field="*{forSure1}" value="yes"><label for="select">
-              <h5>맞아요.</h5>
+              <input type="radio" id="select1" name="forSure1"  value="10">
+              <label for="select1">
+              <h5>매우 아니다</h5>
             </label>
-              <input type="radio" id="select2" name="forSure1" value="no"><label for="select2">
-              <h5>아니요.</h5>
+              <input type="radio" id="select2" name="forSure1" value="20">
+              <label for="select2">
+              <h5>아니다</h5>
             </label>
+              <input type="radio" id="select3" name="forSure1" value="30">
+              <label for="select3">
+                <h5>보통</h5>
+              </label>
+              <input type="radio" id="select4" name="forSure1" value="40">
+              <label for="select4">
+                <h5>그렇다</h5>
+              </label>
+              <input type="radio" id="select5" name="forSure1" value="50">
+              <label for="select5">
+                <h5>매우 그렇다</h5>
+              </label>
             </center>
           </div>
         </div>
@@ -99,16 +114,32 @@
           <!-- 조울증 질문2 -->
           <h4 class="card-title">두번째 질문이에요.</h4>
           <p class="card-text">
-          <h5>평소 당신과는 맞지 않는 행동을 하거나, 남들이 생각하기에 지나치거나 바보같거나 위험한 행동을 한 적이 있나요?</h5>
+          <h5>
+            평소 본인의 성격에 맞지 않는 행동을 한 적이 있다.
+          </h5>
           </p>
           <div class="select">
             <center>
-              <input type="radio" id="select3" name="forSure2" th:field="*{forSure2}" value="yes"><label for="select3">
-              <h5>맞아요.</h5>
+              <input type="radio" id="select6" name="forSure2"  value="10">
+              <label for="select6">
+              <h5>매우 아니다</h5>
             </label>
-              <input type="radio" id="select4" name="forSure2"  value="no"><label for="select4">
-              <h5>아니요.</h5>
+              <input type="radio" id="select7" name="forSure2" value="20">
+              <label for="select7">
+              <h5>아니다</h5>
             </label>
+              <input type="radio" id="select8" name="forSure2" value="30">
+              <label for="select8">
+                <h5>보통</h5>
+              </label>
+              <input type="radio" id="select9" name="forSure2" value="40">
+              <label for="select9">
+                <h5>그렇다</h5>
+              </label>
+              <input type="radio" id="select10" name="forSure2" value="50">
+              <label for="select10">
+                <h5>매우 그렇다</h5>
+              </label>
             </center>
           </div>
         </div>
@@ -119,16 +150,30 @@
           <!-- 우울증 질문1 -->
           <h4 class="card-title">세번째 질문이에요.</h4>
           <p class="card-text">
-          <h5>어느 누가 도와준다 하더라도 나의 울적한 기분을 떨쳐 버릴 수 없을 것 같거나 그런 적이 있나요?</h5>
+          <h5>평소보다 많이 울거나 화를 더 많이 낸다.</h5>
           </p>
           <div class="select">
             <center>
-              <input type="radio" id="select5" name="forSure3" th:field="*{forSure3}" value="yes"><label for="select5">
-              <h5>맞아요.</h5>
+              <input type="radio" id="select11" name="forSure3"  value="10">
+              <label for="select11">
+              <h5>매우 아니다</h5>
             </label>
-              <input type="radio" id="select6" name="forSure3" value="no"><label for="select6">
-              <h5>아니요.</h5>
+              <input type="radio" id="select12" name="forSure3" value="20">
+              <label for="select12">
+              <h5>아니다</h5>
             </label>
+              <input type="radio" id="select13" name="forSure3" value="30">
+              <label for="select13">
+                <h5>보통</h5>
+              </label>
+              <input type="radio" id="select14" name="forSure3" value="40">
+              <label for="select14">
+                <h5>그렇다</h5>
+              </label>
+              <input type="radio" id="select15" name="forSure3" value="50">
+              <label for="select15">
+                <h5>매우 그렇다</h5>
+              </label>
             </center>
           </div>
         </div>
@@ -139,16 +184,32 @@
           <!-- 우울증 질문2 -->
           <h4 class="card-title">네번째 질문이에요.</h4>
           <p class="card-text">
-          <h5>세상에 홀로 있는 듯 한 외로움을 느꼈거나, 사람들이 나에게 차갑게 대하는 것 같거나 그런 적이 있나요?</h5>
+          <h5>
+            평소보다 의욕이 없거나, 잠을 자지 못한다.
+          </h5>
           </p>
           <div class="select">
             <center>
-              <input type="radio" id="select7" name="forSure4" th:field="*{forSure4}" value="yes"><label for="select7">
-              <h5>맞아요.</h5>
+              <input type="radio" id="select16" name="forSure4"  value="10">
+              <label for="select16">
+              <h5>매우 아니다</h5>
             </label>
-              <input type="radio" id="select8" name="forSure4" value="no"><label for="select8">
-              <h5>아니요.</h5>
+              <input type="radio" id="select17" name="forSure4" value="20">
+              <label for="select17">
+              <h5>아니다</h5>
             </label>
+              <input type="radio" id="select18" name="forSure4" value="30">
+              <label for="select18">
+                <h5>보통</h5>
+              </label>
+              <input type="radio" id="select19" name="forSure4" value="40">
+              <label for="select19">
+                <h5>그렇다</h5>
+              </label>
+              <input type="radio" id="select20" name="forSure4" value="50">
+              <label for="select20">
+                <h5>매우 그렇다</h5>
+              </label>
             </center>
           </div>
         </div>
@@ -159,16 +220,30 @@
           <!-- 공황장애 질문1 -->
           <h4 class="card-title">다섯번째 질문이에요.</h4>
           <p class="card-text">
-          <h5>가끔씩 자제력이 상실되거나 미칠 것 같아서 두려운 느낌이 든 적이 있나요?</h5>
+          <h5>자제력을 잃을 것 같거나 미칠 것 같은 두려움이 있다.</h5>
           </p>
           <div class="select">
             <center>
-              <input type="radio" id="select9" name="forSure5" th:field="*{forSure5}" value="yes"><label for="select9">
-              <h5>맞아요.</h5>
+              <input type="radio" id="select21" name="forSure5"  value="10">
+              <label for="select21">
+              <h5>매우 아니다</h5>
             </label>
-              <input type="radio" id="select10" name="forSure5" value="no"><label for="select10">
-              <h5>아니요.</h5>
+              <input type="radio" id="select22" name="forSure5" value="20">
+              <label for="select22">
+              <h5>아니다</h5>
             </label>
+              <input type="radio" id="select23" name="forSure5" value="30">
+              <label for="select23">
+                <h5>보통</h5>
+              </label>
+              <input type="radio" id="select24" name="forSure5" value="40">
+              <label for="select24">
+                <h5>그렇다</h5>
+              </label>
+              <input type="radio" id="select25" name="forSure5" value="50">
+              <label for="select25">
+                <h5>매우 그렇다</h5>
+              </label>
             </center>
           </div>
         </div>
@@ -179,16 +254,30 @@
           <!-- 공황장애 질문2 -->
           <h4 class="card-title">여섯번째 질문이에요.</h4>
           <p class="card-text">
-          <h5>이따금씩 숨이 가쁘고 숨 막히는 느낌이라던지, 질식할 것 같은 느낌이 든 적이 있나요?</h5>
+          <h5> 손발이 저리거나 마비되는 느낌이 있거나, 죽을 것 같은 공포가 있다.</h5>
           </p>
           <div class="select">
             <center>
-              <input type="radio" id="select11" name="forSure6" th:field="*{forSure6}" value="yes"><label for="select11">
-              <h5>맞아요.</h5>
+              <input type="radio" id="select26" name="forSure6"  value="10">
+              <label for="select26">
+              <h5>매우 아니다</h5>
             </label>
-              <input type="radio" id="select12" name="forSure6"value="no"><label for="select12">
-              <h5>아니요.</h5>
+              <input type="radio" id="select27" name="forSure6" value="20">
+              <label for="select27">
+              <h5>아니다</h5>
             </label>
+              <input type="radio" id="select28" name="forSure6" value="30">
+              <label for="select28">
+                <h5>보통</h5>
+              </label>
+              <input type="radio" id="select29" name="forSure6" value="40">
+              <label for="select29">
+                <h5>그렇다</h5>
+              </label>
+              <input type="radio" id="select30" name="forSure6" value="50">
+              <label for="select30">
+                <h5>매우 그렇다</h5>
+              </label>
             </center>
           </div>
         </div>
@@ -199,16 +288,30 @@
           <!-- 조현증 질문1 -->
           <h4 class="card-title">일곱번째 질문이에요.</h4>
           <p class="card-text">
-          <h5>뭔가(대화)를 분명히 들었는데도 내가 혹시 상상한 것이 아닌가 하는 의심이 가끔 든 적이 있나요?</h5>
+          <h5> 이유없이 여기저기 아프다고 하고, 신체 일부의 생김새에 집착하게 된다. </h5>
           </p>
           <div class="select">
             <center>
-              <input type="radio" id="select13" name="forSure7" th:field="*{forSure7}" value="yes"><label for="select13">
-              <h5>맞아요.</h5>
+              <input type="radio" id="select31" name="forSure7"  value="10">
+              <label for="select31">
+              <h5>매우 아니다</h5>
             </label>
-              <input type="radio" id="select14" name="forSure7"value="no"><label for="select14">
-              <h5>아니요.</h5>
+              <input type="radio" id="select32" name="forSure7" value="20">
+              <label for="select32">
+              <h5>아니다</h5>
             </label>
+              <input type="radio" id="select33" name="forSure7" value="30">
+              <label for="select33">
+                <h5>보통</h5>
+              </label>
+              <input type="radio" id="select34" name="forSure7" value="40">
+              <label for="select34">
+                <h5>그렇다</h5>
+              </label>
+              <input type="radio" id="select35" name="forSure7" value="50">
+              <label for="select35">
+                <h5>매우 그렇다</h5>
+              </label>
             </center>
           </div>
         </div>
@@ -219,16 +322,30 @@
           <!-- 조현증 질문2 -->
           <h4 class="card-title">여덟번째 질문이에요.</h4>
           <p class="card-text">
-          <h5>TV(또는 영상물)을 볼 때 화면과 대화(자막)를 따라가면서 동시에 줄거리를 이해하기가 어려운 적이 있나요?</h5>
+          <h5>원래 관심이 없던 철학, 종교와 같은 운세에 집착하게 된다.</h5>
           </p>
           <div class="select">
             <center>
-              <input type="radio" id="select15" name="forSure8" th:field="*{forSure8}" value="yes"><label for="select15">
-              <h5>맞아요.</h5>
+              <input type="radio" id="select36" name="forSure8"  value="10">
+              <label for="select36">
+              <h5>매우 아니다</h5>
             </label>
-              <input type="radio" id="select16" name="forSure8"value="no"><label for="select16">
-              <h5>아니요.</h5>
+              <input type="radio" id="select37" name="forSure8" value="20">
+              <label for="select37">
+              <h5>아니다</h5>
             </label>
+              <input type="radio" id="select38" name="forSure8" value="30">
+              <label for="select38">
+                <h5>보통</h5>
+              </label>
+              <input type="radio" id="select39" name="forSure8" value="40">
+              <label for="select39">
+                <h5>그렇다</h5>
+              </label>
+              <input type="radio" id="select40" name="forSure8" value="50">
+              <label for="select40">
+                <h5>매우 그렇다</h5>
+              </label>
             </center>
           </div>
         </div>
@@ -239,16 +356,30 @@
           <!-- 망상장애 질문1-->
           <h4 class="card-title">아홉번째 질문이에요.</h4>
           <p class="card-text">
-          <h5>남이 호의적으로 말하거나 좋은일이 일어나도 자기의 품위를 손상시키거나 숨겨진 의도를 읽어내려 한 적이 있나요?</h5>
+          <h5>근거 없는 분석을 가지고 확신에 차서 이야기 한다.</h5>
           </p>
           <div class="select">
             <center>
-              <input type="radio" id="select17" name="forSure9" th:field="*{forSure9}" value="yes"><label for="select17">
-              <h5>맞아요.</h5>
+              <input type="radio" id="select41" name="forSure9"  value="10">
+              <label for="select41">
+              <h5>매우 아니다</h5>
             </label>
-              <input type="radio" id="select18" name="forSure9"value="no"><label for="select18">
-              <h5>아니요.</h5>
+              <input type="radio" id="select42" name="forSure9" value="20">
+              <label for="select42">
+              <h5>아니다</h5>
             </label>
+              <input type="radio" id="select43" name="forSure9" value="30">
+              <label for="select43">
+                <h5>보통</h5>
+              </label>
+              <input type="radio" id="select44" name="forSure9" value="40">
+              <label for="select44">
+                <h5>그렇다</h5>
+              </label>
+              <input type="radio" id="select45" name="forSure9" value="50">
+              <label for="select45">
+                <h5>매우 그렇다</h5>
+              </label>
             </center>
           </div>
         </div>
@@ -259,16 +390,30 @@
           <!-- 망상장애 질문2-->
           <h4 class="card-title">이제.. 마지막 질문이에요.</h4>
           <p class="card-text">
-          <h5>어떠한 정보가 나에게 나쁘게 이용될것이라는 두려움에 다른사람에게 비밀을 털어놓기를 꺼린 적이 있나요?</h5>
+          <h5>남이 무언가를 알려주어도 그것 말고 다른 것을 숨기고 있을 것이라 항상 의심한다.</h5>
           </p>
           <div class="select">
             <center>
-              <input type="radio" id="select19" name="forSure10" th:field="*{forSure10}" value="yes"><label for="select19">
-              <h5>맞아요.</h5>
+              <input type="radio" id="select46" name="forSure10"  value="10">
+              <label for="select46">
+              <h5>매우 아니다</h5>
             </label>
-              <input type="radio" id="select20" name="forSure10"value="no"><label for="select20">
-              <h5>아니요.</h5>
+              <input type="radio" id="select47" name="forSure10" value="20">
+              <label for="select47">
+              <h5>아니다</h5>
             </label>
+              <input type="radio" id="select48" name="forSure10" value="30">
+              <label for="select48">
+                <h5>보통</h5>
+              </label>
+              <input type="radio" id="select49" name="forSure10" value="40">
+              <label for="select49">
+                <h5>그렇다</h5>
+              </label>
+              <input type="radio" id="select50" name="forSure10" value="50">
+              <label for="select50">
+                <h5>매우 그렇다</h5>
+              </label>
             </center>
           </div>
         </div>

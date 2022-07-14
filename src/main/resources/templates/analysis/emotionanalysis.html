@@ -17,45 +17,6 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
 
-    <!-- js 설정 -->
-    <script>
-        var submit = document.getElementById('submitButton');
-        submit.onclick = showImage; //Submit 버튼 클릭시 이미지 보여주기
-
-        function showImage() {
-            var newImage = document.getElementById('image-show').lastElementChild;
-            newImage.style.visibility = "visible";
-
-            document.getElementById('image-upload').style.visibility = 'hidden';
-
-            document.getElementById('fileName').textContent = null; //기존 파일 이름 지우기
-        }
-
-
-        function loadFile(input) {
-            var file = input.files[0];
-
-            var name = document.getElementById('fileName');
-            name.textContent = file.name;
-
-            var newImage = document.createElement("img");
-            newImage.setAttribute("class", 'img');
-
-            newImage.src = URL.createObjectURL(file);
-
-            newImage.style.width = "70%";
-            newImage.style.height = "70%";
-            newImage.style.visibility = "hidden"; //버튼을 누르기 전까지는 이미지 숨기기
-            newImage.style.objectFit = "contain";
-
-            var container = document.getElementById('image-show');
-            container.appendChild(newImage);
-        };
-    </script> 
-
-    <!-- 위치 잡아주는 CSS -->
-    <link href="/Survey/Survey.css" rel="stylesheet">
-
     <style>
         * {
             font-family: 'Song Myung', serif;
@@ -179,11 +140,9 @@
         }
 
         .image-show {
-            z-index: -1;
             display: flex;
             justify-content: center;
             align-items: center;
-            position: absolute;
             width: 100%;
             height: 100%;
         }
@@ -191,8 +150,53 @@
         .img {
             position: absolute;
         }
-    </style>
 
+        #cardComponent {
+            display: none;
+        }
+    </style>
+    <script type="text/javascript">
+        function cardDisplay() {
+            var con = document.getElementById("cardComponent");
+            con.style.display = (con.style.display != 'none')?"block":"none";
+        }
+    </script>
+
+    <script type="text/javascript">
+        function loadFile(input) {
+            var file = input.files[0];	//선택된 파일 가져오기
+
+            //미리 만들어 놓은 div에 text(파일 이름) 추가
+            var name = document.getElementById('fileName');
+            name.textContent = file.name;
+
+            //새로운 이미지 div 추가
+            var newImage = document.createElement("img");
+            newImage.setAttribute("class", 'img');
+
+            //이미지 source 가져오기
+            newImage.src = URL.createObjectURL(file);
+
+            newImage.style.width = "70%";
+            newImage.style.height = "70%";
+            newImage.style.visibility = "hidden";   //버튼을 누르기 전까지는 이미지를 숨긴다
+            newImage.style.objectFit = "contain";
+
+            //이미지를 image-show div에 추가
+            var container = document.getElementById('image-show');
+            container.appendChild(newImage);
+        };
+
+        var submit = document.getElementById('submitButton');
+        submit.onclick = showImage;     //Submit 버튼 클릭시 이미지 보여주기
+
+        function showImage() {
+            var newImage = document.getElementById('image-show').lastElementChild;
+
+            //이미지는 화면에 나타나고
+            newImage.style.visibility = "visible";
+        }
+    </script>
 </head>
 
 <body>
@@ -207,12 +211,6 @@
                         </span>
             </a>
 
-            <script th:inline="javascript">
-                let logout = !isAuthenticated();
-                if(logout) {
-                    alert("로그아웃 되셨습니다.");
-                }
-            </script>
 
             <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
                 <a class="me-3 py-2 text-dark text-decoration-none" th:href="@{/face/emotion}">감정 분석</a>
@@ -257,31 +255,27 @@
                             <p>파일명 : </p>
                             <p id="fileName"></p>
                         </div>
-                        <div class="buttonContainer">
-                            <div class="submitButton" id="submitButton">업로드하기!</div>
-                        </div>
+                        <button onclick="showImage()" class="buttonContainer">
+                                <a style="text-decoration: none; color:white;" href="javascript:cardDisplay()" class="submitButton" id="submitButton">업로드하기!</a>
+                        </button>
                     </div>
                 </div>
-
-                <div class="image-show" id="image-show"></div>
             </div>
 
-            <script src="index.js"></script>
             <p>
 
 
             </p>
-            <center>
+            <center id="cardComponent">
                 <div class="card" style="width: 58.5rem;">
                     <div class="card-body">
                         <center>
                             <table>
-                                <thead>
-                                    <tr>
-                                        <th colspan="3" rowspan="3"><img src="/img/mainPage/1.jpeg"
-                                                style="width: 150px; height: 150px"></th>
-                                    </tr>
-                                </thead>
+                                <tbody>
+                                    <td>
+                                        <div style="width: 300px; height: 300px;" class="image-show" id="image-show"></div>
+                                    </td>
+                                </tbody>
                             </table>
                         </center>
                     </div>
@@ -289,43 +283,51 @@
                 <br>
                 <div class="card" style="width: 58.5rem;">
                     <div class="card-body">
-                        <h4 style="text-align: center;">감정 : 행복</h4>
-                        <h4 class="card-title">당신의 사진을 보아하니, 행복해보이는군요.</h4>
+                        <h2 style="text-align: center;">우울함</h2>
+                        <h4 class="card-title">오늘 하루 쉬어가는 건 어떨까요.</h4>
                         <p class="card-text">
-                        <h5>오늘 하루 계속 그렇게만 웃어주세요. </h5>
                         </p>
-                        <br>
-                        <br>
-                        <h5 class="card-title">행복해보이는 당신을 위한 추천 유튜브 영상</h5>
+                        <h5 class="card-title">우울해보이는 당신을 위한 추천 유튜브 영상</h5>
                         <div class="youtube">
                             <div class="row">
                                 <div class="col">
-                                    <iframe id="busanTravelIframe1" style="width: 55rem; height: 30rem;"
-                                        src="https://www.youtube.com/embed/QovUu4Hx2aQ?rel=0&enablejsapi=1"
-                                        frameborder="0" allowfullscreen></iframe>
-                                    <script type="text/javascript">
+                                    <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+                                    <div id="player"></div>
+
+                                    <script>
+                                        // 2. This code loads the IFrame Player API code asynchronously.
                                         var tag = document.createElement('script');
+
                                         tag.src = "https://www.youtube.com/iframe_api";
                                         var firstScriptTag = document.getElementsByTagName('script')[0];
                                         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+                                        // 3. This function creates an <iframe> (and YouTube player)
+                                        //    after the API code downloads.
                                         var player;
                                         function onYouTubeIframeAPIReady() {
-                                            player = new YT.Player('busanTravelIframe1', {
+                                            player = new YT.Player('player', {
+                                                height: '360',
+                                                width: '640',
+                                                videoId: 'rlEwXcVd7qY',
                                                 events: {
                                                     'onStateChange': onPlayerStateChange
                                                 }
                                             });
                                         }
-                                        var playerState;
-                                        function onPlayerStateChange(event) {
-                                            playerState = event.data == YT.PlayerState.ENDED ? '종료됨' :
-                                                event.data == YT.PlayerState.PLAYING ? '재생 중' :
-                                                    event.data == YT.PlayerState.PAUSED ? '일시중지 됨' :
-                                                        event.data == YT.PlayerState.BUFFERING ? '버퍼링 중' :
-                                                            event.data == YT.PlayerState.CUED ? '재생준비 완료됨' :
-                                                                event.data == -1 ? '시작되지 않음' : '예외';
 
-                                            console.log('onPlayerStateChange 실행: ' + playerState);
+                                        // 5. The API calls this function when the player's state changes.
+                                        //    The function indicates that when playing a video (state=1),
+                                        //    the player should play for six seconds and then stop.
+                                        var done = false;
+                                        function onPlayerStateChange(event) {
+                                            if (event.data == YT.PlayerState.PLAYING && !done) {
+                                                setTimeout(stopVideo, 6000);
+                                                done = true;
+                                            }
+                                        }
+                                        function stopVideo() {
+                                            player.stopVideo();
                                         }
                                     </script>
                                 </div> <br>
